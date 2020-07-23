@@ -63,15 +63,20 @@ if( !function_exists( 'ultratable_metabox_save_meta' ) ){
         if( !wp_verify_nonce( $_POST['ultratable_shortcode_nonce_value'], plugin_basename(__FILE__) ) ) {
                 return;
         }
+        
+        if( !isset( $_POST['data'] ) ){
+            return;
+        }
+        $data = $_POST['data'];
+        $data['POST_ID'] = $post_id;
         /**
          * @Hook Filter: ultratable_post_data_on_save
          */
-        $_POST_DATA = apply_filters( 'ultratable_post_data_on_save', $_POST, $post_id, $post );
+        $_POST_DATA = apply_filters( 'ultratable_post_data_on_save', $data, $post_id, $post );
         
-        $datas = filter_input_array(INPUT_POST);
-        var_dump($_POST_DATA,$datas);exit;
         
-        update_post_meta( $post_id, $tab, $_POST_DATA );
+        
+        //update_post_meta( $post_id, 'data', $_POST_DATA );
 
         /**
          * @Hook Action: ultratable_on_save_post
