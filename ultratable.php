@@ -140,9 +140,15 @@ class ULTRATABLE{
             include_once ULTRATABLE_BASE_DIR . '/admin/ultratable-post.php';
             include_once ULTRATABLE_BASE_DIR . '/admin/post_metabox.php';
         }
+        if( !class_exists( 'Mobile_Detect' ) ){
+            include_once ULTRATABLE_BASE_DIR . '/modules/Mobile_Detect.php';
+        }
+        
         include_once ULTRATABLE_BASE_DIR . '/includes/functions.php';
-        include_once ULTRATABLE_BASE_DIR . '/includes/functions.php';
+        include_once ULTRATABLE_BASE_DIR . '/table/table.php';
         //include_once ULTRATABLE_BASE_DIR . '/includes/aaaa.php';
+        
+        //include_once $this->path('BASE_DIR','table/table.php');
         
     }
     public function admin_notice() {
