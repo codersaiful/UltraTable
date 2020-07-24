@@ -37,13 +37,8 @@ if( !function_exists( 'ultratable_shortcode_configuration_metabox_render' ) ){
     //Now start metabox for shortcode Generator
     function ultratable_shortcode_configuration_metabox_render(){
         global $post;
- echo '<input type="hidden" name="ultratable_shortcode_nonce_value" value="' . wp_create_nonce( plugin_basename( __FILE__ ) ) . '" />'; //We have to remove it later
-        //include __DIR__ . '/post_metabox_form.php';
-        ?>
-
-<h1>Hello World</h1>
-        <br style="clear: both;">
-        <?php
+        echo '<input type="hidden" name="ultratable_shortcode_nonce_value" value="' . wp_create_nonce( plugin_basename( __FILE__ ) ) . '" />'; //We have to remove it later
+        include __DIR__ . '/post_metabox_form.php';
     }
 }
 
@@ -72,11 +67,11 @@ if( !function_exists( 'ultratable_metabox_save_meta' ) ){
         /**
          * @Hook Filter: ultratable_post_data_on_save
          */
-        $_POST_DATA = apply_filters( 'ultratable_post_data_on_save', $data, $post_id, $post );
+        $_POST_DATA = apply_filters( 'ultratable_post_data_on_save', $data, $post_id, $post, $_POST );
         
         
         
-        //update_post_meta( $post_id, 'data', $_POST_DATA );
+        update_post_meta( $post_id, 'data', $_POST_DATA );
 
         /**
          * @Hook Action: ultratable_on_save_post
@@ -84,7 +79,7 @@ if( !function_exists( 'ultratable_metabox_save_meta' ) ){
          * @since 6.1.0.5
          * @Hook_Version: 6.1.0.5
          */
-        add_action( 'ultratable_on_post_save', $post_id, $post );
+        add_action( 'ultratable_on_post_save', $post_id, $post, $_POST );
 
     }
 }

@@ -37,6 +37,7 @@ $tr_class = implode(" ", $tr_class_arr);
         $rowtype . '_td',
         'td-' . $rowtype,
     );
+    $td_class_arr = apply_filters( 'ultratable_tr_class_arr', $td_class_arr, $tr_key, $row, $current_tr, $POST_ID, $args, $datas );
     $td_class = implode(" ", $td_class_arr);
     
 

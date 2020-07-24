@@ -170,7 +170,7 @@ if( !class_exists( 'WPT_TABLE' ) ){
          */
        public static function detectDevice( $userAgent = null ){
            $mobile_detect = new Mobile_Detect( null, $userAgent );
-           return apply_filters( 'wpt_change_mobile_detect_object', $mobile_detect );
+           return apply_filters( 'wpt_mobile_detect_object', $mobile_detect );
        }
 
        /**
@@ -193,7 +193,7 @@ if( !class_exists( 'WPT_TABLE' ) ){
            }elseif($detect->isMobile()){
                $device = "mobile";
            }
-           $device = apply_filters( 'wpt_chnage_device_data', $device, self::detectDevice() );
+           $device = apply_filters( 'wpt_device_name', $device, self::detectDevice() );
            return $device;
        }
     }
