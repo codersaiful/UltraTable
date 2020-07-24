@@ -1,5 +1,32 @@
 <?php
 defined( 'ABSPATH' ) || exit;
+/*
+class DP_Shortcode_Discontinued extends WC_Shortcode_Products {
+
+	
+	protected function set_discontinued_products_query_args( &$query_args ) {
+		$query_args['post__in'] = get_transient( 'dp_hide_from_shop' );
+	}
+}
+
+*/
+function aaaa_abdc_etc(){
+    
+    //$GLOBALS['woocommerce_loop'] = wp_parse_args( $args, $default_args );
+    //var_dump(get_option( 'active_plugins' ));
+    $meta_query  = WC()->query->get_meta_query();
+    $tax_query   = WC()->query->get_tax_query();
+    var_dump($GLOBALS['product'],$GLOBALS['wp_query']);
+    var_dump(wp_parse_args(array('post_type'=>'product')));
+    
+    echo '<pre>';
+    //print_r(WC());
+    //print_r($tax_query);
+    //print_r($meta_query);
+    echo '</pre>';
+}
+//add_filter('init','aaaa_abdc_etc',99999999);
+
 
 //include __DIR__ . '/classes/class_shortcode.php';
 include __DIR__ . '/classes/class_wpt_table.php';
@@ -14,8 +41,7 @@ function wpt_table_generate( $atts ){
     if( isset( $atts['id'] ) && !empty( $atts['id'] ) && is_numeric( $atts['id'] ) && get_post_type( (int) $atts['id'] ) == 'ultratable' ){
         $POST_ID = $atts['id'];//isset( $atts['id'] ) ? $atts['id'] : false;
         $datas = get_post_meta( $POST_ID,'data',true);
-        $datasss = get_post_meta( $POST_ID,'datas',true);
-        var_dump($datasss);
+        var_dump($datas);
     }else{
         echo esc_html( 'Table ID is not founded!!!', 'ultratable' );
         return ob_get_clean();
@@ -24,15 +50,12 @@ function wpt_table_generate( $atts ){
     $WPT_DIR_LINK = __DIR__;
 
     
-    $args = isset( $datas['args'] ) ? $datas['args'] : array( 'post_type' => array('product'), 'post_status' => 'publish' );
-    /*        
-            array(
+    
+    $args = array(
         'posts_per_page' => 8,
         'post_type' => array('product'), //, 'product_variation','product'
         'post_status'   =>  'publish',
     );
-     * 
-     */
 
     //WPT_ARGS_Manager::sanitize($datas);
     
@@ -78,6 +101,7 @@ function wpt_table_generate( $atts ){
                 $table_row = WPT_TABLE::getCollumns();
                 $fullwidth = WPT_TABLE::getFullwidth();
                 $collcount = WPT_TABLE::columnCount();
+
                 if ($product_loop->have_posts()) : while ($product_loop->have_posts()): $product_loop->the_post();
                 global $product;
 
