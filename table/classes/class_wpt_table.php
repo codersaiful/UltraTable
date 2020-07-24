@@ -57,7 +57,7 @@ if( !class_exists( 'WPT_TABLE' ) ){
         public static function getActiveColumns( $fullColumns = false , $return = 'columns') {
             $columns = $head = false;
 
-            if( !is_array( $fullColumns ) && count( $fullColumns ) < 1 ){
+            if( !is_array( $fullColumns ) ){
                 return false;
             }
 
@@ -146,6 +146,16 @@ if( !class_exists( 'WPT_TABLE' ) ){
          * @return ARRAY array of Table Head . Array of data for TH
          */
         public static function get_head(){
+            $head = self::$head;
+            return apply_filters( 'wpt_head_datas', $head );
+        }
+        /**
+         * get_head()
+         * Alias of get_head()
+         * 
+         * @return type
+         */
+        public static function getHead(){
             $head = self::$head;
             return apply_filters( 'wpt_head_datas', $head );
         }

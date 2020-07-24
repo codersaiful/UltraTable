@@ -23,7 +23,7 @@ if( !class_exists( 'WPT_ARGS_Manager' ) ){
             $datas['device']['desktop']['status'] = 'on';
             
             $suppoeted_device = array('desktop','tablet','mobile');
-            $suppoeted_device = apply_filters( 'wpt_supported_device_arr', $suppoeted_device, $datas );
+            $suppoeted_device = apply_filters( 'ultratable_supported_device_arr', $suppoeted_device, $datas );
             
             
             //var_dump($datas['device']);

@@ -1,0 +1,7 @@
+.ultratable-device-head .switch {
+    margin-left: 15px;
+}
+
+.ultratable-device-head {
+    display: flex;
+}
