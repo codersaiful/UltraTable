@@ -49,3 +49,19 @@ if( !function_exists( 'ultratable_modify_datas' ) ){
 }
 add_filter( 'ultratable_post_data_on_save', 'ultratable_modify_datas', 10, 2 );
 
+//add_action( 'admin_init', 'wpse_80112',99999 );
+
+function wpse_80112() {
+
+    // If we're on an admin page with the referer passed in the QS, prevent it nesting and becoming too long.
+    global $pagenow;
+    if( isset( $_GET['_wp_http_referer'] ) ){
+        var_dump(isset( $_GET['_wp_http_referer'] ));
+        exit;
+    }
+        if( 'admin.php' === $pagenow && isset( $_GET['_wp_http_referer'] ) && preg_match( '/_wp_http_referer/', $_GET['_wp_http_referer'] ) ) :
+            //wp_redirect( remove_query_arg( array( '_wp_http_referer', '_wpnonce' ), wp_unslash( $_SERVER['REQUEST_URI'] ) ) );
+            exit;
+        endif;
+
+}

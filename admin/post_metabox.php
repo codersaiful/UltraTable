@@ -70,7 +70,7 @@ if( !function_exists( 'ultratable_metabox_save_meta' ) ){
         $_POST_DATA = apply_filters( 'ultratable_post_data_on_save', $data, $post_id, $post, $_POST );
         
         
-        
+        return;
         update_post_meta( $post_id, 'data', $_POST_DATA );
 
         /**

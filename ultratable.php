@@ -143,6 +143,9 @@ class ULTRATABLE{
         if( !class_exists( 'Mobile_Detect' ) ){
             include_once ULTRATABLE_BASE_DIR . '/modules/Mobile_Detect.php';
         }
+        //Load Script JS/CSS for both Admin/FrontEnd
+        include_once ULTRATABLE_BASE_DIR . '/includes/load-scripts.php';
+        
         
         include_once ULTRATABLE_BASE_DIR . '/includes/functions.php';
         include_once ULTRATABLE_BASE_DIR . '/table/table.php';
