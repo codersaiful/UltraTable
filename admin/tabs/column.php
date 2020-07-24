@@ -7,9 +7,9 @@
  */
 
 //Supported Device Also Included in WPT_ARGS_Manager::sanitize()
-$suppoeted_device = array('desktop','tablet','mobile');
-$suppoeted_device = apply_filters( 'ultratable_supported_device_arr', $suppoeted_device, $data );
-$suppoeted_device = is_array( $suppoeted_device ) ? $suppoeted_device : false;
+$suppoeted_device   = array('desktop','tablet','mobile');
+$suppoeted_device   = apply_filters( 'ultratable_supported_device_arr', $suppoeted_device, $data );
+$suppoeted_device   = is_array( $suppoeted_device ) ? $suppoeted_device : false;
 $devices = isset( $data['device'] ) && is_array( $data['device'] ) ? $data['device'] : false;
 //var_dump($devices);
 if( !$devices || !$suppoeted_device ){
@@ -19,16 +19,19 @@ if( !$devices || !$suppoeted_device ){
 foreach( $suppoeted_device as $device_key ){
     $device_arr = isset( $devices[$device_key] ) && is_array( $devices[$device_key] ) ? $devices[$device_key] : false;
     if( $device_arr ){
-        $label = isset( $device_arr['label'] ) && !empty( $device_arr['label'] ) ? $device_arr['label'] : $device_key;
-        $status = isset( $device_arr['label'] ) && !empty( $device_arr['label'] ) ? 'on' : 'off';
-        $checkbox = $status == 'on' ? 'checked' : '';
+        $device_name_prefix = "data[device][{$device_key}]";
+        $label              = isset( $device_arr['label'] ) && !empty( $device_arr['label'] ) ? $device_arr['label'] : $device_key;
+        $status             = isset( $device_arr['status'] ) && !empty( $device_arr['status'] ) && $device_arr['status'] == 'on' ? 'on' : 'off';
+        $checkbox           = $status == 'on' ? 'checked' : '';
+        
+        $target = $device_key;
     ?>
 <div class="ultraaddons-panel ultratable-device ultratable-device-<?php echo esc_attr( $device_key ); ?>" data-device-key="<?php echo esc_attr( $device_key ); ?>">
     <div class="ultratable-device-inside">
         <div class="ultratable-device-head">
             <h1><?php echo esc_html( $label ); ?></h1>
-            <input type="hidden" name="data[device][<?php echo esc_attr( $device_key ); ?>]['label']" value="<?php echo esc_attr( $label ); ?>" class="<?php echo esc_attr( $device_key ); ?>-label">
-            <input type="hidden" name="data[device][<?php echo esc_attr( $device_key ); ?>]['status']" value="<?php echo esc_attr( $status ); ?>"class="<?php echo esc_attr( $device_key ); ?>-status">
+            <input type="hidden" name="<?php echo esc_attr( $device_name_prefix );?>[label]" value="<?php echo esc_attr( $label ); ?>" class="<?php echo esc_attr( $device_key ); ?>-label">
+            <input type="hidden" name="<?php echo esc_attr( $device_name_prefix );?>[status]" value="<?php echo esc_attr( $status ); ?>" class="<?php echo esc_attr( $device_key ); ?>-status">
             
             <label class="switch">
                 <input class="ultratable-placeholder-onoff" data-target="<?php echo esc_attr( $device_key ); ?>-status" type="checkbox" <?php echo esc_attr( $checkbox ); ?>>
@@ -38,7 +41,121 @@ foreach( $suppoeted_device as $device_key ){
             </label>
         </div>
         <div class="ultratable-device-body">
-            <?php var_dump($device_arr); ?>
+            <?php 
+            //var_dump($device_arr);
+            $columns_arr = isset( $device_arr['columns'] ) ? $device_arr['columns'] : false;
+            $columns_arr = is_array( $columns_arr ) && count( $columns_arr ) > 0 ? $columns_arr : false; 
+            $html_col_head = $html_col_body = '';
+            //var_dump($columns_arr);
+            if( $columns_arr ){
+                foreach( $columns_arr as $colKey => $columnArr ){
+                    $name_prefix        = $device_name_prefix . "[columns][{$colKey}]";
+                    $head_label         = isset( $columnArr['head']['content'] ) ? $columnArr['head']['content'] : false;
+                    $head_class         = isset( $columnArr['head']['class'] ) ? $columnArr['head']['class'] : false;
+                    $col_status         = isset( $columnArr['status'] ) && !empty( $columnArr['status'] ) && $columnArr['status'] == 'on' ? 'on' : 'off';
+                    
+                    $checkbox           = $col_status == 'on' ? 'checked' : '';
+                    
+                    $col_target = $device_key . "-" . $colKey;
+                    ?>  
+            <div class="ultratable-each-column ultratable-each-column-<?php echo esc_attr( $colKey ); ?> ">
+                <h3><?php echo wp_kses_post( $head_label ); ?></h3> 
+                    
+                <div class="column-details">
+                    <input type="hidden" name="<?php echo esc_attr( $name_prefix ); ?>[status]" value="<?php echo esc_attr( $col_status ); ?>" class="<?php echo esc_attr( $device_key . '-' . $colKey ); ?>-status">
+
+                    <label class="switch">
+                        <input class="ultratable-placeholder-onoff" data-target="<?php echo esc_attr( $device_key . '-' . $colKey ); ?>-status" type="checkbox" <?php echo esc_attr( $checkbox ); ?>>
+                        <div class="slider round"><!--ADDED HTML -->
+                            <span class="on">ON</span><span class="off">OFF</span><!--END-->
+                        </div>
+                    </label>
+                    <p class="each-col-each-filed">
+                        <label>Column Head</label>
+                        <input name="<?php echo esc_attr( $name_prefix ); ?>[head][content]" value="<?php echo esc_attr( $head_label ); ?>">
+                    </p>
+
+
+                    <p class="each-col-each-filed">
+                        <label>Column Class</label>
+                        <input name="<?php echo esc_attr( $name_prefix ); ?>[head][class]" value="<?php echo esc_attr( $head_class ); ?>">
+                    </p>
+                    
+                    <!-- More Hidden For Wrapper -->
+                    <?php 
+                    $wrapper_id  = 'tr_id';
+                    $wrapper_class  = 'tr_id_class';
+                    ?>
+                    <input name="<?php echo esc_attr( $name_prefix ); ?>[wrapper][id]" value="<?php echo esc_attr( $wrapper_id ); ?>" type="hidden">
+                    <input name="<?php echo esc_attr( $name_prefix ); ?>[wrapper][class]" value="<?php echo esc_attr( $wrapper_class ); ?>" type="hidden">
+                    
+                    <div class="ultratable-items-wrapper ultratable-items-wrapper-<?php echo esc_attr( $device_key ); ?>-<?php echo esc_attr( $colKey ); ?>" 
+                         data-device="<?php echo esc_attr( $device_key ); ?>" 
+                         data-column="<?php echo esc_attr( $colKey ); ?>">
+                        
+                    
+                    <?php
+                    $items = isset( $columnArr['items'] ) ? $columnArr['items'] : false;
+                    //var_dump($items);
+                    if( is_array( $items ) ){
+                        foreach( $items as $itemKey => $item ){
+                            $item_name_prefix   = $name_prefix . "[items][{$itemKey}]";
+                            $tag                = isset( $item['tag'] ) ? $item['tag'] : 'div';
+                            $class              = isset( $item['class'] ) ? $item['class'] : false;
+                            $id                 = isset( $item['id'] ) ? $item['id'] : false;
+                            $content            = isset( $item['content'] ) ? $item['content'] : false;
+                            
+                            
+                            
+                            $item_target = $device_key . "-{$colKey}-" . $itemKey;
+                            ?>
+                        <div class="ultratable-item-heading">
+                            <b><?php echo esc_html( $itemKey ); ?></b> 
+                            <a href="#" data-target="" 
+                                class="botton button-primary" 
+                                data-target="<?php echo esc_attr( $item_target ); ?>" 
+                                data-device="<?php echo esc_attr( $device_key ); ?>" 
+                                data-column="<?php echo esc_attr( $colKey ); ?>"><?php echo esc_html( 'Edit' ); ?></a>
+                        </div>
+                        
+                        <div class="ultratable-item-body">
+                            <p class="each-item-field">
+                                <label>Item Tag</label>
+                                <input name="<?php echo esc_attr( $item_name_prefix ); ?>[tag]" value="<?php echo esc_attr( $tag ); ?>">
+                            </p>
+                            
+                            <p class="each-item-field">
+                                <label>Item Class</label>
+                                <input name="<?php echo esc_attr( $item_name_prefix ); ?>[class]" value="<?php echo esc_attr( $class ); ?>">
+                            </p>
+                            
+
+                            <input name="<?php echo esc_attr( $item_name_prefix ); ?>[id]" value="<?php echo esc_attr( $id ); ?>" type="hidden">
+                            <?php if( $content ){ ?>
+                            <p class="each-item-field">
+                                <label>Content</label>
+                                <input name="<?php echo esc_attr( $item_name_prefix ); ?>[content]" value="<?php echo esc_attr( $content ); ?>">
+                            </p>
+                            <?php } ?>
+                            
+                        </div>
+                        
+                            <?php
+                        }
+                    }
+                    
+                    ?>
+                    </div>
+                </div>
+                
+                
+            </div>
+                    <?php
+                }
+            }
+            
+            
+            //var_dump($device_arr); ?>
         </div>
     </div>
 </div>    

@@ -132,14 +132,9 @@ class ULTRATABLE{
 		load_plugin_textdomain( 'ultratable', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 	});
         
-        if( is_admin() ){
-            include_once ULTRATABLE_BASE_DIR . '/admin/functions.php';
-            include_once ULTRATABLE_BASE_DIR . '/admin/admin-menu.php';
-            include_once ULTRATABLE_BASE_DIR . '/admin/settings.php';
-            
-            include_once ULTRATABLE_BASE_DIR . '/admin/ultratable-post.php';
-            include_once ULTRATABLE_BASE_DIR . '/admin/post_metabox.php';
-        }
+        /**
+         * Including Files
+         */
         if( !class_exists( 'Mobile_Detect' ) ){
             include_once ULTRATABLE_BASE_DIR . '/modules/Mobile_Detect.php';
         }
@@ -152,6 +147,16 @@ class ULTRATABLE{
         //include_once ULTRATABLE_BASE_DIR . '/includes/aaaa.php';
         
         //include_once $this->path('BASE_DIR','table/table.php');
+        
+        if( is_admin() ){
+            include_once ULTRATABLE_BASE_DIR . '/admin/functions.php';
+            include_once ULTRATABLE_BASE_DIR . '/admin/admin-menu.php';
+            include_once ULTRATABLE_BASE_DIR . '/admin/settings.php';
+            
+            include_once ULTRATABLE_BASE_DIR . '/admin/ultratable-post.php';
+            include_once ULTRATABLE_BASE_DIR . '/admin/post_metabox.php';
+        }
+        
         
     }
     public function admin_notice() {

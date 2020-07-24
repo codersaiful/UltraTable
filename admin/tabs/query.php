@@ -29,7 +29,7 @@ $supported_terms    = apply_filters( 'ultratable_supported_terms', $supported_te
             
             $selected_term_ids = isset( $data['terms'][$term_key] ) && !empty( $data['terms'][$term_key] ) ? $data['terms'][$term_key] : false;
             //include 'includes/terms_condition.php';
-            var_dump($selected_term_ids);
+            //var_dump($selected_term_ids);
             ?>
             <tr>
                 <th><label for="ultratable_term_<?php echo esc_attr( $term_key ); ?>">Choose a <?php echo esc_html( $term_name ); ?></label></th>

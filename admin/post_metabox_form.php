@@ -5,6 +5,8 @@
 global $post;
 $post_id    = $post->ID;
 $data       = get_post_meta( $post_id, 'data', true);
+//echo '<pre>'; print_r($data);echo '</pre>';exit;
+include_once __DIR__ . '/default-data.php';
 $tabs       = array(
     'column'    => esc_html( 'Column', 'ultratable' ),
     'query'     => esc_html( 'Query', 'ultratable' ),
@@ -73,5 +75,5 @@ foreach ( $tabs as $tab => $title ) {
     echo '</div>'; //End of Tab content div
     $active_tab_content = false; //Active tab content only for First
 }
-
+var_dump($data);
 do_action( 'ultratable_post_form_bottom',$data, $post, $tabs );

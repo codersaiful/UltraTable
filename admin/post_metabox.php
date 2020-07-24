@@ -26,7 +26,7 @@ if( !function_exists( 'ultratable_shortcode_metabox_render' ) ){
         global $post;
         $curent_post_id = $post->ID;
         $post_title = preg_replace( '/[#$%^&*()+=\-\[\]\';,.\/{}|":<>?~\\\\]/',"$1", $post->post_title );
-        echo '<input type="text" value="[Product_Table id=\'' . $curent_post_id . '\' name=\'' . $post_title . '\']" class="ultratable_auto_select_n_copy ultratable_meta_box_shortcode mb-text-input mb-field" id="ultratable_metabox_copy_content" readonly>'; // class='ultratable_auto_select_n_copy'
+        echo '<input type="text" value="[UltraTable id=\'' . $curent_post_id . '\' name=\'' . $post_title . '\']" class="ultratable_auto_select_n_copy ultratable_meta_box_shortcode mb-text-input mb-field" id="ultratable_metabox_copy_content" readonly>'; // class='ultratable_auto_select_n_copy'
         echo '<a style=""  class="button button-primary ultratable_copy_button_metabox" data-target_id="ultratable_metabox_copy_content">Copy</a>';
         echo '<p style="color: #007692;font-weight:bold;display:none; padding-left: 12px;" class="ultratable_metabox_copy_content"></p>';
 
@@ -69,8 +69,7 @@ if( !function_exists( 'ultratable_metabox_save_meta' ) ){
          */
         $_POST_DATA = apply_filters( 'ultratable_post_data_on_save', $data, $post_id, $post, $_POST );
         
-        
-        return;
+        //echo '<pre>'; print_r($_POST_DATA);echo '</pre>';exit;
         update_post_meta( $post_id, 'data', $_POST_DATA );
 
         /**

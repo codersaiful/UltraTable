@@ -15,7 +15,7 @@ function wpt_table_generate( $atts ){
         $POST_ID = $atts['id'];//isset( $atts['id'] ) ? $atts['id'] : false;
         $datas = get_post_meta( $POST_ID,'data',true);
         $datasss = get_post_meta( $POST_ID,'datas',true);
-        var_dump($datasss);
+        //var_dump($datasss);
     }else{
         echo esc_html( 'Table ID is not founded!!!', 'ultratable' );
         return ob_get_clean();
