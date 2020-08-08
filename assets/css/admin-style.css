@@ -11,11 +11,13 @@
     padding: 0 10px;
     margin-bottom: 10px;
     background: #dddddd21;
+    position: relative;
 }
 
 .column-head {
     display: flex;
     padding-top: 15px;
+    padding-bottom: 15px;
 }
 
 .column-head h3 {
@@ -23,4 +25,13 @@
     margin-right: 15px;
 }
 .ultratable-item-body{display: none;}
-.ultratable-handle{display: inline-block;width: 32px;background: #ddd;cursor: move;}
+.ultratable-handle,.control-icons{display: inline-block;width: 32px;background: #ddd;text-align: center;}
+
+.ultratable-each-column .column-details{display: none;}
+.column-control-icons {
+    position: absolute;
+    left: unset;
+    bottom: unset;
+    right: 10px;
+    top: 16px;
+}

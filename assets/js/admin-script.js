@@ -14,6 +14,13 @@ jQuery(document).ready(function($){
             e.preventDefault();
             $(this).parents('.ultratable-item').find('.ultratable-item-body').toggle();
         });
+        
+        $('body.ultratable').on('click','.control-icons-edit,.column-head',function(e){
+            $(this).parents('.ultratable-each-column').find('.column-details').fadeToggle();
+        });
+        
+        
+        
         $('body.ultratable').on('click','.control-icons-delete',function(e){
             $(this).closest('.ultratable-each-column').remove();
         });
@@ -24,7 +31,12 @@ jQuery(document).ready(function($){
         
         
         $( ".ultratable-device-body,.ultratable-items-wrapper" ).sortable({
-            handle:this //.ultratable-handle this is handle class selector , if need '.ultratable-handle',
+            handle:this,//'.ultratable-handle'//this //.ultratable-handle this is handle class selector , if need '.ultratable-handle',
         });
+        
+        
+        
+        
+        //Adding new Element
     });
 });

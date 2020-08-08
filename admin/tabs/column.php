@@ -46,6 +46,7 @@ foreach( $suppoeted_device as $device_key ){
             $columns_arr = isset( $device_arr['columns'] ) ? $device_arr['columns'] : false;
             $columns_arr = is_array( $columns_arr ) && count( $columns_arr ) > 0 ? $columns_arr : false; 
             $html_col_head = $html_col_body = '';
+            $serial = 1;
             //var_dump($columns_arr);
             if( $columns_arr ){
                 foreach( $columns_arr as $colKey => $columnArr ){
@@ -57,14 +58,24 @@ foreach( $suppoeted_device as $device_key ){
                     $checkbox           = $col_status == 'on' ? 'checked' : '';
                     
                     $col_target = $device_key . "-" . $colKey;
+                    //var_dump($columnArr,$name_prefix); <input type="hidden" name="data[device][desktop][columns][1][status]" value="on" class="desktop-1-status">
                     ?>  
             <div class="ultratable-each-column ultratable-each-column-<?php echo esc_attr( $colKey ); ?> ">
                 <div class="column-control-icons">
-                    <i class="ultratable-each-column-handle ultratable-handle control-icons">H</i>
+                    <i class="ultratable-each-column-handle ultratable-handle control-icons">Move</i>
                     <i class="control-icons control-icons-delete">X</i>
+                    <i class="control-icons control-icons-edit">Edit</i>
                 </div>
                 <div class="column-head">
-                    <h3><?php echo wp_kses_post( $head_label ); ?></h3> 
+                    <h3 class="this-col-head-number">
+                        
+                        <?php 
+                        echo wp_kses_post( $head_label );
+                        echo esc_html(" | ");
+                        echo sprintf( esc_html( "%sColumn %s%s%s%s", 'ultratable' ), '<span>','<i class="col-number">',$serial,'</i>','<span>');
+                        //echo wp_kses_post( $head_label ); 
+                        ?>
+                    </h3> 
                     
                     <input type="hidden" name="<?php echo esc_attr( $name_prefix ); ?>[status]" value="<?php echo esc_attr( $col_status ); ?>" class="<?php echo esc_attr( $device_key . '-' . $colKey ); ?>-status">
 
@@ -128,7 +139,7 @@ foreach( $suppoeted_device as $device_key ){
                                 data-device="<?php echo esc_attr( $device_key ); ?>" 
                                 data-column="<?php echo esc_attr( $colKey ); ?>"><?php echo esc_html( 'Edit' ); ?></a>
                             <div class="item--control-icons">
-                                <i class="ultratable-item-handle  ultratable-handle item-control-icons">H</i>
+                                <i class="ultratable-item-handle  ultratable-handle item-control-icons">Move</i>
                                 <i class="item-control-icons item-control-icons-delete">X</i>
                             </div>
                             <div class="ultratable-item-body">
@@ -167,6 +178,7 @@ foreach( $suppoeted_device as $device_key ){
                 
             </div>
                     <?php
+                    $serial++;
                 }
             }
             
