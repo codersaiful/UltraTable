@@ -46,10 +46,13 @@ foreach( $suppoeted_device as $device_key ){
             $columns_arr = isset( $device_arr['columns'] ) ? $device_arr['columns'] : false;
             $columns_arr = is_array( $columns_arr ) && count( $columns_arr ) > 0 ? $columns_arr : false; 
             $html_col_head = $html_col_body = '';
-            $serial = 1;
+            $serial = $maxNumber = 1;
             //var_dump($columns_arr);
             if( $columns_arr ){
                 foreach( $columns_arr as $colKey => $columnArr ){
+                    if($colKey >= $maxNumber ){
+                        $maxNumber = $colKey;
+                    }
                     $name_prefix        = $device_name_prefix . "[columns][{$colKey}]";
                     $head_label         = isset( $columnArr['head']['content'] ) ? $columnArr['head']['content'] : false;
                     $head_class         = isset( $columnArr['head']['class'] ) ? $columnArr['head']['class'] : false;
@@ -172,6 +175,14 @@ foreach( $suppoeted_device as $device_key ){
                     }
                     
                     ?>
+                        
+                    </div>
+                    <div class="ultratable-add-items">
+                        <?php
+
+                        //<input type="hidden" name="data[device][desktop][columns][1][status]" value="on" class="desktop-1-status">
+                        ?>
+                        <a href="#" data-name="<?php echo esc_attr( $name_prefix ); ?>" class="button button-primary ultratable-add-new-column">Add Items</a>
                     </div>
                 </div>
                 
@@ -184,6 +195,16 @@ foreach( $suppoeted_device as $device_key ){
             
             
             //var_dump($device_arr); ?>
+        </div>
+        <div data-target="" class="add-new-column">
+            <?php
+            $maxNumber++;
+            $name_prefix        = $device_name_prefix . "[columns][{$maxNumber}][status]";
+            //var_dump($name_prefix);
+            
+            //<input type="hidden" name="data[device][desktop][columns][1][status]" value="on" class="desktop-1-status">
+            ?>
+            <a href="#" data-name="<?php echo esc_attr( $name_prefix ); ?>" class="button button-primary ultratable-add-new-column">Add new column</a>
         </div>
     </div>
 </div>    

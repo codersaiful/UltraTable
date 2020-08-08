@@ -37,6 +37,23 @@ jQuery(document).ready(function($){
         
         
         
-        //Adding new Element
+        //Adding new Element //ultratable-add-new-column
+        $('body.ultratable').on('click','.ultratable-add-new-column',function(e){
+            e.preventDefault();
+            var name = $(this).data('name');
+            $(this).closest('.ultratable-device-inside').find('.ultratable-device-body').append('<input type="hidden" name="' + name + '" value="on">');
+            
+            $('body.ultratable input#publish[name=save],body.ultratable input#publish[name=publish]').trigger('click'); //publish
+        });
+        
+        //Adding new Item //ultratable-add-new-column
+        $('body.ultratable').on('click','.ultratable-add-new-column',function(e){
+            e.preventDefault();
+            var name = $(this).data('name');
+            $(this).closest('.column-details').find('.ultratable-items-wrapper').append('<input type="text" name="' + name + '" value="">');
+            
+            //$('body.ultratable input#publish[name=save],body.ultratable input#publish[name=publish]').trigger('click'); //publish
+        });
+        
     });
 });
