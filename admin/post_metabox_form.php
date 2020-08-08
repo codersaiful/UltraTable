@@ -20,6 +20,14 @@ $supported_items = array(
     'quantity'=>'Quantity',
 );
 $supported_items = apply_filters( 'ultratable_supported_items',$supported_items, $data, $post_id, $post, $tabs );
+
+$supported_css_property = array(
+    'color'        =>  'Text Color',
+    'font-size'=>'Font Size',
+    'background-color'=>'red',
+);
+$supported_css_property = apply_filters( 'ultratable_supported_css_property',$supported_css_property, $data, $post_id, $post, $tabs );
+
 /**
  * filterrize Data and tabs
  */

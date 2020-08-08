@@ -166,6 +166,8 @@ foreach( $suppoeted_device as $device_key ){
                                     <input name="<?php echo esc_attr( $item_name_prefix ); ?>[content]" value="<?php echo esc_attr( $content ); ?>"  class="ua_input">
                                 </p>
                                 <?php } ?>
+                                
+<?php do_action( 'ultratable_admin_items_bottom', $item_name_prefix, $itemKey, $item, $colKey, $columnArr, $device_key, $supported_items,$supported_css_property, $data, $post_id, $post, $tabs ); ?>
 
                             </div>
                         </div>
@@ -184,15 +186,20 @@ foreach( $suppoeted_device as $device_key ){
 
                         //<input type="hidden" name="data[device][desktop][columns][1][status]" value="on" class="desktop-1-status">
                         ?>
-                        <input class="items-keyword" value="" placeholder="Input Items name. Eg: action,price">
+                        
+                        
+                        <label for="supported_items">Add New Item:</label>
+                        <select class="items-keyword" id="supported_items">
+                            <option value="">Select an Item</option>
+                            <?php 
+
+                            foreach ($supported_items as $key => $value){
+                                ?>
+                            <option value="<?php echo esc_attr( $key ); ?>"><?php echo esc_html( $value ); ?></option>
+                            <?php } ?>
+                            
+                        </select>
                         <a href="#" data-name="<?php echo esc_attr( $name_prefix ); ?>" class="button button-primary ultratable-add-new-items">Add Items</a>
-                        <p>
-                            Currently Supporteds: 
-                            <?php
-                            $ssss = array_keys( $supported_items );
-                            echo esc_html( implode(',', $ssss) );
-                            ?>
-                        </p>
                     </div>
                 </div>
                 
