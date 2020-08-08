@@ -59,9 +59,9 @@ foreach( $suppoeted_device as $device_key ){
                     $col_target = $device_key . "-" . $colKey;
                     ?>  
             <div class="ultratable-each-column ultratable-each-column-<?php echo esc_attr( $colKey ); ?> ">
-                <h3><?php echo wp_kses_post( $head_label ); ?></h3> 
+                <div class="column-head">
+                    <h3><?php echo wp_kses_post( $head_label ); ?></h3> 
                     
-                <div class="column-details">
                     <input type="hidden" name="<?php echo esc_attr( $name_prefix ); ?>[status]" value="<?php echo esc_attr( $col_status ); ?>" class="<?php echo esc_attr( $device_key . '-' . $colKey ); ?>-status">
 
                     <label class="switch">
@@ -70,15 +70,20 @@ foreach( $suppoeted_device as $device_key ){
                             <span class="on">ON</span><span class="off">OFF</span><!--END-->
                         </div>
                     </label>
+                </div>
+                
+                    
+                <div class="column-details">
+                    
                     <p class="each-col-each-filed">
                         <label>Column Head</label>
-                        <input name="<?php echo esc_attr( $name_prefix ); ?>[head][content]" value="<?php echo esc_attr( $head_label ); ?>">
+                        <input name="<?php echo esc_attr( $name_prefix ); ?>[head][content]" value="<?php echo esc_attr( $head_label ); ?>" class="ua_input">
                     </p>
 
 
                     <p class="each-col-each-filed">
                         <label>Column Class</label>
-                        <input name="<?php echo esc_attr( $name_prefix ); ?>[head][class]" value="<?php echo esc_attr( $head_class ); ?>">
+                        <input name="<?php echo esc_attr( $name_prefix ); ?>[head][class]" value="<?php echo esc_attr( $head_class ); ?>" class="ua_input">
                     </p>
                     
                     <!-- More Hidden For Wrapper -->
@@ -108,37 +113,40 @@ foreach( $suppoeted_device as $device_key ){
                             
                             
                             $item_target = $device_key . "-{$colKey}-" . $itemKey;
+                            
                             ?>
-                        <div class="ultratable-item-heading">
+                        <div class="ultratable-item">
                             <b><?php echo esc_html( $itemKey ); ?></b> 
-                            <a href="#" data-target="" 
-                                class="botton button-primary" 
+                            <a href="#"
+                                class="" 
                                 data-target="<?php echo esc_attr( $item_target ); ?>" 
                                 data-device="<?php echo esc_attr( $device_key ); ?>" 
                                 data-column="<?php echo esc_attr( $colKey ); ?>"><?php echo esc_html( 'Edit' ); ?></a>
+                            
+                            <div class="ultratable-item-body">
+                                <p class="each-item-field">
+                                    <label>Item Tag</label>
+                                    <input name="<?php echo esc_attr( $item_name_prefix ); ?>[tag]" value="<?php echo esc_attr( $tag ); ?>"  class="ua_input">
+                                </p>
+
+                                <p class="each-item-field">
+                                    <label>Item Class</label>
+                                    <input name="<?php echo esc_attr( $item_name_prefix ); ?>[class]" value="<?php echo esc_attr( $class ); ?>"  class="ua_input">
+                                </p>
+
+
+                                <input name="<?php echo esc_attr( $item_name_prefix ); ?>[id]" value="<?php echo esc_attr( $id ); ?>" type="hidden">
+                                <?php if( $content ){ ?>
+                                <p class="each-item-field">
+                                    <label>Content</label>
+                                    <input name="<?php echo esc_attr( $item_name_prefix ); ?>[content]" value="<?php echo esc_attr( $content ); ?>"  class="ua_input">
+                                </p>
+                                <?php } ?>
+
+                            </div>
                         </div>
                         
-                        <div class="ultratable-item-body">
-                            <p class="each-item-field">
-                                <label>Item Tag</label>
-                                <input name="<?php echo esc_attr( $item_name_prefix ); ?>[tag]" value="<?php echo esc_attr( $tag ); ?>">
-                            </p>
-                            
-                            <p class="each-item-field">
-                                <label>Item Class</label>
-                                <input name="<?php echo esc_attr( $item_name_prefix ); ?>[class]" value="<?php echo esc_attr( $class ); ?>">
-                            </p>
-                            
-
-                            <input name="<?php echo esc_attr( $item_name_prefix ); ?>[id]" value="<?php echo esc_attr( $id ); ?>" type="hidden">
-                            <?php if( $content ){ ?>
-                            <p class="each-item-field">
-                                <label>Content</label>
-                                <input name="<?php echo esc_attr( $item_name_prefix ); ?>[content]" value="<?php echo esc_attr( $content ); ?>">
-                            </p>
-                            <?php } ?>
-                            
-                        </div>
+                        
                         
                             <?php
                         }

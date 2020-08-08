@@ -9,5 +9,10 @@ jQuery(document).ready(function($){
                 $('.' + target).val('off');
             }
         });
+        
+        $('body.ultratable').on('click','.ultratable-item a',function(e){
+            e.preventDefault();
+            $(this).next('.ultratable-item-body').toggle();
+        });
     });
 });

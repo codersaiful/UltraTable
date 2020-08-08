@@ -10,6 +10,7 @@ include_once __DIR__ . '/default-data.php';
 $tabs       = array(
     'column'    => esc_html( 'Column', 'ultratable' ),
     'query'     => esc_html( 'Query', 'ultratable' ),
+    'settings'  => esc_html( 'Settings', 'ultratable' ),
     'design'    => esc_html( 'Design', 'ultratable' ),
 );
 

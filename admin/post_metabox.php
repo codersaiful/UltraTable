@@ -64,6 +64,7 @@ if( !function_exists( 'ultratable_metabox_save_meta' ) ){
         }
         $data = $_POST['data'];
         $data['POST_ID'] = $post_id;
+        $data['id'] = $post_id;
         /**
          * @Hook Filter: ultratable_post_data_on_save
          */
