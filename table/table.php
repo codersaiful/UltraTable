@@ -35,7 +35,6 @@ function wpt_table_generate( $atts ){
      */
 
     //WPT_ARGS_Manager::sanitize($datas);
-    
     WPT_TABLE::init( $datas );
     
     

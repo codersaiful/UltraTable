@@ -5,3 +5,22 @@
 .ultratable-device-head {
     display: flex;
 }
+
+.ultratable-each-column {
+    border: 1px solid #ddd;
+    padding: 0 10px;
+    margin-bottom: 10px;
+    background: #dddddd21;
+}
+
+.column-head {
+    display: flex;
+    padding-top: 15px;
+}
+
+.column-head h3 {
+    margin: 0;
+    margin-right: 15px;
+}
+.ultratable-item-body{display: none;}
+.ultratable-handle{display: inline-block;width: 32px;background: #ddd;cursor: move;}
