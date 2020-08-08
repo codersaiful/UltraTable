@@ -1,7 +1,6 @@
 <?php 
 
 $head = WPT_TABLE::get_head();
-var_dump($datas);
 $tr_class = isset( $datas['thead_class'] ) ? $datas['thead_class'] : 'wpt_table_head';
 $tr_class_arr = array(
     'th_post_id_' . $POST_ID,

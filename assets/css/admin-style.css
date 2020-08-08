@@ -23,3 +23,4 @@
     margin-right: 15px;
 }
 .ultratable-item-body{display: none;}
+.ultratable-handle{display: inline-block;width: 32px;background: #ddd;cursor: move;}

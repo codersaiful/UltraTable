@@ -59,6 +59,10 @@ foreach( $suppoeted_device as $device_key ){
                     $col_target = $device_key . "-" . $colKey;
                     ?>  
             <div class="ultratable-each-column ultratable-each-column-<?php echo esc_attr( $colKey ); ?> ">
+                <div class="column-control-icons">
+                    <i class="ultratable-each-column-handle ultratable-handle control-icons">H</i>
+                    <i class="control-icons control-icons-delete">X</i>
+                </div>
                 <div class="column-head">
                     <h3><?php echo wp_kses_post( $head_label ); ?></h3> 
                     
@@ -116,13 +120,17 @@ foreach( $suppoeted_device as $device_key ){
                             
                             ?>
                         <div class="ultratable-item">
+                            
                             <b><?php echo esc_html( $itemKey ); ?></b> 
                             <a href="#"
                                 class="" 
                                 data-target="<?php echo esc_attr( $item_target ); ?>" 
                                 data-device="<?php echo esc_attr( $device_key ); ?>" 
                                 data-column="<?php echo esc_attr( $colKey ); ?>"><?php echo esc_html( 'Edit' ); ?></a>
-                            
+                            <div class="item--control-icons">
+                                <i class="ultratable-item-handle  ultratable-handle item-control-icons">H</i>
+                                <i class="item-control-icons item-control-icons-delete">X</i>
+                            </div>
                             <div class="ultratable-item-body">
                                 <p class="each-item-field">
                                     <label>Item Tag</label>

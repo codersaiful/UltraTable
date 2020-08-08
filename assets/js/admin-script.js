@@ -12,7 +12,19 @@ jQuery(document).ready(function($){
         
         $('body.ultratable').on('click','.ultratable-item a',function(e){
             e.preventDefault();
-            $(this).next('.ultratable-item-body').toggle();
+            $(this).parents('.ultratable-item').find('.ultratable-item-body').toggle();
+        });
+        $('body.ultratable').on('click','.control-icons-delete',function(e){
+            $(this).closest('.ultratable-each-column').remove();
+        });
+        
+        $('body.ultratable').on('click','.item-control-icons-delete',function(e){
+            $(this).closest('.ultratable-item').remove();
+        });
+        
+        
+        $( ".ultratable-device-body,.ultratable-items-wrapper" ).sortable({
+            handle:this //.ultratable-handle this is handle class selector , if need '.ultratable-handle',
         });
     });
 });
