@@ -13,7 +13,13 @@ $tabs       = array(
     'settings'  => esc_html( 'Settings', 'ultratable' ),
     'design'    => esc_html( 'Design', 'ultratable' ),
 );
-
+$supported_items = array(
+    'action'        =>  'Action',
+    'content'=>'Content',
+    'price'=>'price',
+    'quantity'=>'Quantity',
+);
+$supported_items = apply_filters( 'ultratable_supported_items',$supported_items, $data, $post_id, $post, $tabs );
 /**
  * filterrize Data and tabs
  */

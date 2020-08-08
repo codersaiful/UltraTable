@@ -22,11 +22,18 @@ jQuery(document).ready(function($){
         
         
         $('body.ultratable').on('click','.control-icons-delete',function(e){
-            $(this).closest('.ultratable-each-column').remove();
+            var conf = confirm('Column will be remove. Unable to redo.\nAre you sure?');
+            if(conf){
+                $(this).closest('.ultratable-each-column').remove();
+            }
+            
         });
         
         $('body.ultratable').on('click','.item-control-icons-delete',function(e){
-            $(this).closest('.ultratable-item').remove();
+            var conf = confirm('Item will be remove. Unable to redo.\nAre you sure?');
+            if(conf){
+                $(this).closest('.ultratable-item').remove();
+            }
         });
         
         
@@ -47,12 +54,13 @@ jQuery(document).ready(function($){
         });
         
         //Adding new Item //ultratable-add-new-column
-        $('body.ultratable').on('click','.ultratable-add-new-column',function(e){
+        $('body.ultratable').on('click','.ultratable-add-new-items',function(e){
             e.preventDefault();
-            var name = $(this).data('name');
-            $(this).closest('.column-details').find('.ultratable-items-wrapper').append('<input type="text" name="' + name + '" value="">');
+            var name = $(this).data('name'); //items-keyword
+            var value = $(this).closest('.ultratable-add-items').find('.items-keyword').val();
+            $(this).closest('.column-details').find('.ultratable-items-wrapper').append('<input type="hidden" name="' + name + '[items][' + value + '][id]" value="' + value + '">');
             
-            //$('body.ultratable input#publish[name=save],body.ultratable input#publish[name=publish]').trigger('click'); //publish
+            $('body.ultratable input#publish[name=save],body.ultratable input#publish[name=publish]').trigger('click'); //publish
         });
         
     });

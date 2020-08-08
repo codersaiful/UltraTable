@@ -24,8 +24,16 @@
     margin: 0;
     margin-right: 15px;
 }
-.ultratable-item-body{display: none;}
-.ultratable-handle,.control-icons{display: inline-block;width: 32px;background: #ddd;text-align: center;}
+.ultratable-item-body{
+    display: none;
+}
+.ultratable-handle,
+.control-icons {
+    display: inline-block;
+    text-align: center;
+    margin-right: 10px;
+    cursor: pointer;
+}
 
 .ultratable-each-column .column-details{display: none;}
 .column-control-icons {
@@ -34,4 +42,63 @@
     bottom: unset;
     right: 10px;
     top: 16px;
+}
+.control-icons, .control-icons:before,
+.ultratable-items-wrapper .ultratable-item a,
+.item-control-icons,
+.item-control-icons-delete {
+    font-family: dashicons;
+    display: inline-block;
+    line-height: 1;
+    font-weight: 400;
+    font-style: normal;
+    speak: none;
+    text-decoration: inherit;
+    text-transform: none;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    width: 20px;
+    height: 20px;
+    font-size: 0px;
+    vertical-align: top;
+    text-align: center;
+    transition: color .1s ease-in;
+}
+.ultratable-handle:before,
+.item-control-icons:before {
+    content: "\f545";
+    font-size: 20px;
+}
+.control-icons-delete:before,
+.item-control-icons-delete:before {
+    content: "\f335";
+    font-size: 20px;
+}
+.control-icons-edit:before,
+.ultratable-items-wrapper .ultratable-item a:before {
+    content: "\f464";
+    font-size: 20px;
+}
+.control-icons-delete,
+.item-control-icons-delete {
+    color: red;
+}
+.control-icons-edit,
+.ultratable-items-wrapper .ultratable-item a {
+    color: #2196F3;
+}
+.column-head img {
+    width: 50px;
+}
+.item--control-icons {
+    display: inline;
+    margin-left: 10px;
+    position: absolute;
+    right: 0;
+}
+.ultratable-item {
+    padding: 9px;
+    background: #e4e4e42e;
+    margin-bottom: 3px;
 }

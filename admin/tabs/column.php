@@ -50,6 +50,7 @@ foreach( $suppoeted_device as $device_key ){
             //var_dump($columns_arr);
             if( $columns_arr ){
                 foreach( $columns_arr as $colKey => $columnArr ){
+                    //var_dump($columnArr);
                     if($colKey >= $maxNumber ){
                         $maxNumber = $colKey;
                     }
@@ -136,12 +137,13 @@ foreach( $suppoeted_device as $device_key ){
                         <div class="ultratable-item">
                             
                             <b><?php echo esc_html( $itemKey ); ?></b> 
-                            <a href="#"
+                            
+                            <div class="item--control-icons">
+                                <a href="#"
                                 class="" 
                                 data-target="<?php echo esc_attr( $item_target ); ?>" 
                                 data-device="<?php echo esc_attr( $device_key ); ?>" 
                                 data-column="<?php echo esc_attr( $colKey ); ?>"><?php echo esc_html( 'Edit' ); ?></a>
-                            <div class="item--control-icons">
                                 <i class="ultratable-item-handle  ultratable-handle item-control-icons">Move</i>
                                 <i class="item-control-icons item-control-icons-delete">X</i>
                             </div>
@@ -182,7 +184,15 @@ foreach( $suppoeted_device as $device_key ){
 
                         //<input type="hidden" name="data[device][desktop][columns][1][status]" value="on" class="desktop-1-status">
                         ?>
-                        <a href="#" data-name="<?php echo esc_attr( $name_prefix ); ?>" class="button button-primary ultratable-add-new-column">Add Items</a>
+                        <input class="items-keyword" value="" placeholder="Input Items name. Eg: action,price">
+                        <a href="#" data-name="<?php echo esc_attr( $name_prefix ); ?>" class="button button-primary ultratable-add-new-items">Add Items</a>
+                        <p>
+                            Currently Supporteds: 
+                            <?php
+                            $ssss = array_keys( $supported_items );
+                            echo esc_html( implode(',', $ssss) );
+                            ?>
+                        </p>
                     </div>
                 </div>
                 
