@@ -102,10 +102,11 @@
 }
 .ultratable-item {
     padding: 9px;
-    background: #ffffff2e;
+    background: #fcfcfc;
     margin-bottom: 11px;
-    box-shadow: 0px 3px 5px 1px #00000059;
+    box-shadow: 0px 3px 3px 1px #00000026;
     position: relative;
+    border: 1px solid #30506178;
 }
 .ultratable-device-head h1 {
     float: left;
@@ -128,5 +129,4 @@
 
 .ultratable-item>b {
     padding: 0 9px;
-    color: #1cab25;
 }

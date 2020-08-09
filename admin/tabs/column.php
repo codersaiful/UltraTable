@@ -255,6 +255,23 @@ do_action( 'ultratable_admin_style_area', $name_prefix, $supported_css_property,
             ?>
             <a href="#" data-name="<?php echo esc_attr( $name_prefix ); ?>" class="button button-primary ultratable-add-new-column">Add new column</a>
         </div>
+        
+                            <div class="each-device-extra">
+                        
+                        <?php
+/**
+ * For CSS Style Area for Each Column
+ */
+do_action( 'ultratable_admin_style_area_' . $device_key, $device_name_prefix, $supported_css_property, $device_arr, $device_key, $data, $post );
+
+/**
+ * For CSS Style Area for Each Column
+ */
+do_action( 'ultratable_admin_style_area', $device_name_prefix, $supported_css_property, $device_key, $device_arr, $device_key, $data, $post );
+                   
+                        ?>
+                    </div>
+        
     </div>
 </div>    
     <?php

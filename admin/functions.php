@@ -61,26 +61,93 @@ if( !function_exists( 'ultratable_css_property_adding' ) ){
      * @return Array Return Data Arg for UtraTable type post
      */
     function ultratable_css_property_adding( $item_name_prefix, $supported_css_property, $itemKey, $item ){
-        echo '<div class="style-wrapper' . esc_attr( $itemKey ) . '">';
-        echo '<h3>' . esc_html(  'Style Area', 'ultratable' ) . '</h3>';
-        //var_dump($itemKey, $item, $colKey, $columnArr, $device_key, $supported_items,$supported_css_property);
-        //var_dump($item_name_prefix,$supported_css_property);
+        ?>
+        <div class="style-wrapper<?php echo esc_attr( $itemKey ); ?>">
+            <h3><?php echo esc_html(  'Style Area', 'ultratable' ); ?></h3>
+        <table class="ultraaddons-table">    
+        <?php
         $style                = isset( $item['style'] ) ? $item['style'] : false;
         foreach( $supported_css_property as $style_key => $label ){
             $value = isset( $style[ $style_key ] ) ? $style[ $style_key ] : false;
             ?>
-            <p class="each-style each-style-<?php echo esc_attr( $itemKey ); ?>">
-                <lable><?php echo esc_html($label); ?></lable>
-                <input name="<?php echo esc_attr($item_name_prefix); ?>[style][<?php echo esc_attr($style_key); ?>]" 
-                       value="<?php echo esc_attr( $value ); ?>" 
-                       placeholder="<?php echo esc_attr($label); ?>">   
-            </p> 
+
+            <tr class="each-style each-style-<?php echo esc_attr( $itemKey ); ?>">
+                <th><label><?php echo esc_html($label); ?></label></th>
+                <td>
+                    <input 
+                        class="ua_input"
+                        name="<?php echo esc_attr($item_name_prefix); ?>[style][<?php echo esc_attr($style_key); ?>]" 
+                        value="<?php echo esc_attr( $value ); ?>" 
+                        placeholder="<?php echo esc_attr($label); ?>">   
+                </td>
+            </tr>
             <?php
         }
-        echo '</div>';
+        ?>
+        </table>    
+        </div>    
+        <?php
     }
 }
 add_action( 'ultratable_admin_style_area', 'ultratable_css_property_adding', 10, 4 );
+
+
+
+if( !function_exists( 'ultratable_convert_style_from_arr' ) ){
+    function ultratable_convert_style_from_arr( $style_arr = false ){
+        $style_string = '';
+        if( !empty( $style_arr ) && is_array( $style_arr ) ){
+            $style_arr = array_filter( $style_arr );
+            if( !is_array( $style_arr ) ){
+                return '';
+            }
+            foreach($style_arr as $key => $stl){
+                $style_string .= $key . ': ' . $stl . ';';
+            }
+        }
+        
+        return $style_string;
+    }
+}
+if( !function_exists( 'ultratable_data_manipulation_on_save' ) ){
+    
+    /**
+     * Ussing following Filter: apply_filters( 'ultratable_post_data_on_save', $data, $post_id, $post, $_POST );
+     * from post_metabox.php file
+     * 
+     * @param type $data
+     */
+    function ultratable_data_manipulation_on_save( $data ){
+        
+        //Style Manipulation Here Start
+        $devices = isset( $data['device'] ) ? $data['device'] : false;
+        if( !is_array( $devices ) ){
+            return $data;
+        }
+        
+        foreach( $devices as $devc_key => $device ){
+            $data['device'][$devc_key]['style_str'] = isset( $device['style'] ) && !empty( $device['style'] ) ? ultratable_convert_style_from_arr( $device['style'] ) : '';
+            //var_dump($devc_key,);
+            $columns = isset( $device['columns'] ) && is_array( $device['columns'] ) ? $device['columns'] : array();
+            foreach( $columns as $col_key => $col ){                
+                $data['device'][$devc_key]['columns'][$col_key]['style_str'] = isset( $col['style'] ) && !empty( $col['style'] ) ? ultratable_convert_style_from_arr( $col['style'] ) : '';
+                $items = isset( $col['items'] ) && is_array( $col['items'] ) ? $col['items'] : array();
+                foreach( $items as $item_key=>$item ){
+                    //var_dump($data['device'][$devc_key]['columns'][$col_key]['items'][$item_key]);
+                $data['device'][$devc_key]['columns'][$col_key]['items'][$item_key]['style_str'] = isset( $item['style'] ) && !empty( $item['style'] ) ? ultratable_convert_style_from_arr( $item['style'] ) : '';
+                }
+                
+            }
+        }
+        //Style Manipulation Here End
+        
+        //exit;
+        return $data;
+    }
+}
+add_filter( 'ultratable_post_data_on_save', 'ultratable_data_manipulation_on_save' );
+
+
 
 //add_action( 'admin_init', 'wpse_80112',99999 );
 

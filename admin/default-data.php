@@ -1,6 +1,6 @@
 <?php
 
-if( isset( $data ) && empty( $data ) ){
+if( ( isset( $data ) && empty( $data ) ) || isset( $_GET['reset'] ) ){
     
     $data = array(
         //'POST_ID'  => 123, //Set Table POST ID is here

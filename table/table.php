@@ -36,8 +36,9 @@ function wpt_table_generate( $atts ){
 
     //WPT_ARGS_Manager::sanitize($datas);
     WPT_TABLE::init( $datas );
-    
-    
+    echo '<pre>';
+    print_r($datas);
+    echo '</pre>';
     $name = isset( $datas['name'] ) ? $datas['name'] : false;
     $title = isset( $datas['title'] ) ? $datas['title'] : false;
     $class = isset( $datas['class'] ) && is_array( $datas['class'] ) ? $datas['class'] : array( 'wpt_product_table' );
