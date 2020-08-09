@@ -10,7 +10,7 @@ jQuery(document).ready(function($){
             }
         });
         
-        $('body.ultratable').on('click','.ultratable-item a',function(e){
+        $('body.ultratable').on('click','.ultratable-item a,.ultratable-item b',function(e){
             e.preventDefault();
             $(this).parents('.ultratable-item').find('.ultratable-item-body').toggle();
         });

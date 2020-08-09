@@ -104,10 +104,12 @@ foreach( $suppoeted_device as $device_key ){
                     </p>
                     <?php
 $head_prefix = $name_prefix . '[head]';
+$head_arr = isset( $columnArr['head'] ) ? $columnArr['head'] : array();
+$head_arr['location'] = __( 'Column Head', 'ultratable' );
 /**
  * For CSS Style Area on Each Each Item Area at the bottom
  */
-do_action( 'ultratable_admin_style_area', $head_prefix, $supported_css_property, $colKey, $columnArr['head'], $device_key, $data, $post );
+do_action( 'ultratable_admin_style_area', $head_prefix, $supported_css_property, $colKey, $head_arr, $device_key, $data, $post );
                     ?>
                     
                     <!-- More Hidden For Wrapper -->

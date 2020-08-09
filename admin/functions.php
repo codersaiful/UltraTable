@@ -61,9 +61,10 @@ if( !function_exists( 'ultratable_css_property_adding' ) ){
      * @return Array Return Data Arg for UtraTable type post
      */
     function ultratable_css_property_adding( $item_name_prefix, $supported_css_property, $itemKey, $item ){
+        $h3_extra = isset( $item['location'] ) && !empty( $item['location'] ) ? __( ' Specially for ', 'ultratable' ) . $item['location'] : '';
         ?>
         <div class="style-wrapper<?php echo esc_attr( $itemKey ); ?>">
-            <h3><?php echo esc_html(  'Style Area', 'ultratable' ); ?></h3>
+            <h3><?php echo esc_html(  'Style Area', 'ultratable' ) . $h3_extra; ?></h3>
         <table class="ultraaddons-table">    
         <?php
         $style                = isset( $item['style'] ) ? $item['style'] : false;
