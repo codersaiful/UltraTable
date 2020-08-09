@@ -47,7 +47,6 @@ foreach( $suppoeted_device as $device_key ){
             $columns_arr = is_array( $columns_arr ) && count( $columns_arr ) > 0 ? $columns_arr : false; 
             $html_col_head = $html_col_body = '';
             $serial = $maxNumber = 1;
-            //var_dump($columns_arr);
             if( $columns_arr ){
                 foreach( $columns_arr as $colKey => $columnArr ){
                     //var_dump($columnArr);
@@ -75,7 +74,6 @@ foreach( $suppoeted_device as $device_key ){
                         
                         <?php 
                         echo wp_kses_post( $head_label );
-                        echo esc_html(" | ");
                         echo sprintf( esc_html( "%sColumn %s%s%s%s", 'ultratable' ), '<span>','<i class="col-number">',$serial,'</i>','<span>');
                         //echo wp_kses_post( $head_label ); 
                         ?>
@@ -166,11 +164,32 @@ foreach( $suppoeted_device as $device_key ){
                                     <input name="<?php echo esc_attr( $item_name_prefix ); ?>[content]" value="<?php echo esc_attr( $content ); ?>"  class="ua_input">
                                 </p>
                                 <?php } ?>
-                                
-<?php do_action( 'ultratable_admin_items_bottom', $item_name_prefix, $itemKey, $item, $colKey, $columnArr, $device_key, $supported_items,$supported_css_property, $data, $post_id, $post, $tabs ); ?>
+                                <div class="ultratable-each-item-extra">      
+<?php 
+/**
+ * To add Anything at the bottom of the Items in Admin Panel
+ */
+do_action( 'ultratable_admin_items_bottom_' . $itemKey, $item_name_prefix, $item, $colKey, $columnArr, $device_key, $supported_items,$supported_css_property, $data, $post_id, $post, $tabs );
+/**
+ * To add Anything at the bottom of the Items in Admin Panel
+ */
+do_action( 'ultratable_admin_items_bottom', $item_name_prefix, $itemKey, $item, $colKey, $columnArr, $device_key, $supported_items,$supported_css_property, $data, $post_id, $post, $tabs );
 
-                            </div>
-                        </div>
+
+/**
+ * For CSS Style Area on Each Each Item Area at the bottom
+ */
+do_action( 'ultratable_admin_style_area_' . $itemKey, $item_name_prefix, $supported_css_property, $item, $device_key, $data, $post );
+
+/**
+ * For CSS Style Area on Each Each Item Area at the bottom
+ */
+do_action( 'ultratable_admin_style_area', $item_name_prefix, $supported_css_property, $itemKey, $item, $device_key, $data, $post );
+
+?>
+                                </div> <!-- /.ultratable-each-item-extra -->
+                            </div> <!-- /.each-item-field -->
+                        </div> <!-- /.ultratable-item -->
                         
                         
                         
@@ -178,6 +197,7 @@ foreach( $suppoeted_device as $device_key ){
                         }
                     }
                     
+ 
                     ?>
                         
                     </div>
@@ -201,6 +221,21 @@ foreach( $suppoeted_device as $device_key ){
                         </select>
                         <a href="#" data-name="<?php echo esc_attr( $name_prefix ); ?>" class="button button-primary ultratable-add-new-items">Add Items</a>
                     </div>
+                    <div class="each-column-extra">
+                        
+                        <?php
+/**
+ * For CSS Style Area for Each Column
+ */
+do_action( 'ultratable_admin_style_area_' . $colKey, $name_prefix, $supported_css_property, $columnArr, $device_key, $data, $post );
+
+/**
+ * For CSS Style Area for Each Column
+ */
+do_action( 'ultratable_admin_style_area', $name_prefix, $supported_css_property, $colKey, $columnArr, $device_key, $data, $post );
+                   
+                        ?>
+                    </div>
                 </div>
                 
                 
@@ -217,9 +252,6 @@ foreach( $suppoeted_device as $device_key ){
             <?php
             $maxNumber++;
             $name_prefix        = $device_name_prefix . "[columns][{$maxNumber}][status]";
-            //var_dump($name_prefix);
-            
-            //<input type="hidden" name="data[device][desktop][columns][1][status]" value="on" class="desktop-1-status">
             ?>
             <a href="#" data-name="<?php echo esc_attr( $name_prefix ); ?>" class="button button-primary ultratable-add-new-column">Add new column</a>
         </div>

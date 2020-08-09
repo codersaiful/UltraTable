@@ -61,11 +61,11 @@ if( !function_exists( 'ultratable_css_property_adding' ) ){
      * @return Array Return Data Arg for UtraTable type post
      */
     function ultratable_css_property_adding( $item_name_prefix, $supported_css_property, $itemKey, $item ){
-        
+        echo '<div class="style-wrapper' . esc_attr( $itemKey ) . '">';
+        echo '<h3>' . esc_html(  'Style Area', 'ultratable' ) . '</h3>';
         //var_dump($itemKey, $item, $colKey, $columnArr, $device_key, $supported_items,$supported_css_property);
         //var_dump($item_name_prefix,$supported_css_property);
         $style                = isset( $item['style'] ) ? $item['style'] : false;
-        var_dump($supported_css_property);
         foreach( $supported_css_property as $style_key => $label ){
             $value = isset( $style[ $style_key ] ) ? $style[ $style_key ] : false;
             ?>
@@ -77,7 +77,7 @@ if( !function_exists( 'ultratable_css_property_adding' ) ){
             </p> 
             <?php
         }
-        
+        echo '</div>';
     }
 }
 add_action( 'ultratable_admin_style_area', 'ultratable_css_property_adding', 10, 4 );

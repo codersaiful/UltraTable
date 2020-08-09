@@ -95,17 +95,38 @@
 }
 .item--control-icons {
     display: inline;
-    margin-left: 10px;
+    margin-right: 10px;
     position: absolute;
     right: 0;
+    top: 9px;
 }
 .ultratable-item {
     padding: 9px;
-    background: #e4e4e42e;
-    margin-bottom: 3px;
+    background: #ffffff2e;
+    margin-bottom: 11px;
+    box-shadow: 0px 3px 5px 1px #00000059;
+    position: relative;
 }
 .ultratable-device-head h1 {
     float: left;
     font-size: 22px;
     color: black;
+}
+
+.this-col-head-number>span {
+    padding: 1px 12px;
+    background: #ebf6ff66;
+    border: 1px solid #a8d0f1;
+    margin-left: 10px;
+    border-radius: 15px;
+    margin-top: 0px !important;
+    display: inline-block;
+}
+.ultratable-item-body {
+    padding: 0 8px;
+}
+
+.ultratable-item>b {
+    padding: 0 9px;
+    color: #1cab25;
 }
