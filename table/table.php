@@ -67,9 +67,12 @@ function wpt_table_generate( $atts ){
     </div>
     <div 
         class="wpt_table_div <?php echo esc_attr( $wrapper_div_class ); ?>"
-        style="<?php echo esc_attr( $device_style_str ); ?>"
+        
          >
-        <table class="wpt_table <?php echo esc_attr( $wrapper_table_class ); ?>">
+        <table 
+            class="wpt_table <?php echo esc_attr( $wrapper_table_class ); ?>"
+            style="<?php echo esc_attr( $device_style_str ); ?>"   
+               >
             <?php
             //Include and Generate Table Head Tr here.
             if( WPT_TABLE::is_table_head() && WPT_TABLE::get_head() ){
