@@ -6,6 +6,7 @@
  */
 
 $tag = isset( $item['tag'] ) && !empty( $item['tag'] ) ? $item['tag'] : 'div';
+$item_style_str = isset( $item['style_str'] ) && !empty( $item['style_str'] ) ? $item['style_str'] : '';
 $item_default = 'pre_defined_item'; //Only for Class when Available and Default for not available
 
 //For using inside Item Template
@@ -63,6 +64,7 @@ data-product_id="<?php echo esc_attr( $product_id ); ?>"
 data-post_id="<?php echo esc_attr( $POST_ID ); ?>" 
 class="<?php echo esc_attr( $item_class ); ?>" 
 data-col_no='<?php echo esc_attr( $tr_key ); ?>'
+style="<?php echo esc_attr( $item_style_str ); ?>" 
 id="item_<?php echo esc_attr( $item_id ); ?>" >
 <?php
     //Action for Add content After Selected Keyword

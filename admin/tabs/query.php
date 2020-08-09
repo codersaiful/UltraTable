@@ -10,7 +10,7 @@ $supported_terms    = apply_filters( 'ultratable_supported_terms', $supported_te
 <div class="ultraaddons-panel">
     <table class="ultraaddons-table">
         <tr>
-            <th>Products Per Page</th>
+            <th><label>Products Per Page</label></th>
             <td>
                 <input type="number" name="data[args][posts_per_page]" value="20" class="ua_input">
                 <p>Posts amount in perpage for your table</p>

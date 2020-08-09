@@ -1,9 +1,11 @@
 .ultratable-device-head .switch {
-    margin-left: 15px;
+    margin-right: 0;
+    float: right;
 }
 
 .ultratable-device-head {
-    display: flex;
+    display: block;
+    height: 59px;
 }
 
 .ultratable-each-column {
@@ -93,12 +95,39 @@
 }
 .item--control-icons {
     display: inline;
-    margin-left: 10px;
+    margin-right: 10px;
     position: absolute;
     right: 0;
+    top: 9px;
 }
 .ultratable-item {
+    padding: 0;
+    background: #fcfcfc;
+    margin-bottom: 11px;
+    box-shadow: 0px 3px 3px 1px #00000026;
+    position: relative;
+    border: 1px solid #30506178;
+}
+.ultratable-device-head h1 {
+    float: left;
+    font-size: 22px;
+    color: black;
+}
+
+.this-col-head-number>span {
+    padding: 1px 12px;
+    background: #ebf6ff66;
+    border: 1px solid #a8d0f1;
+    margin-left: 10px;
+    border-radius: 15px;
+    margin-top: 0px !important;
+    display: inline-block;
+}
+.ultratable-item-body {
+    padding: 0 8px;
+}
+
+.ultratable-item>b {
     padding: 9px;
-    background: #e4e4e42e;
-    margin-bottom: 3px;
+    display: block;
 }

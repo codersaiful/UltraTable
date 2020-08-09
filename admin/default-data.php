@@ -1,17 +1,22 @@
 <?php
 
-if( isset( $data ) && empty( $data ) ){
+if( ( isset( $data ) && empty( $data ) ) || isset( $_GET['reset'] ) ){
     
     $data = array(
+        //'POST_ID'  => 123, //Set Table POST ID is here
+        //'name' => 'Home Product Tables',
+        //'title' => 'Choose your Fafourite Table',
+        //'id' => 'wpt_product_table',
+        //'class' => array('wpt_product_table','table_tag'), //Class data for table table
         'device' => array(
             'desktop' => array(
-                'label' => 'Desktop Columns',
+                'label' => __( 'Desktop Columns', 'ultratable' ),
                 'status' => 'on',
                 'columns' => array(
                     array( //This is A Collumn | In Mobile, Now set Only One Column Actually
                         'status' => 'on', //Probale Value on and off
                         'head' => array( // This will be TH , imean column Head.
-                            'content' => 'Products Details',
+                            'content' => 'Products',
                             'class' =>  'single_products',
                             'style' => array(
                                 'color' => 'white',
@@ -33,15 +38,9 @@ if( isset( $data ) && empty( $data ) ){
                         ),
                         'items' => array(
 
-                            'add-to-cart' => array(
-                                'class' => 'item_price_class',
-                                'id'    => 'item price id',
-                                'style' => array( 'color' => 'black' ),
-                                'attribute' => array('some' => 'nothing'),
-                                'settings'  => false,
-                            ),
-                            'action' => array(
-                                'class' => 'item_pricess_class',
+                            'product-title' => array(),
+                            'short-description' => array(
+                                'class' => 'my_short-description',
                                 'id'    => 'item sprice id',
                                 'style' => array( 'color' => 'black' ),
                                 'attribute' => array('some' => 'nothing'),
@@ -57,8 +56,8 @@ if( isset( $data ) && empty( $data ) ){
                     array( //This is A Collumn | In Mobile, Now set Only One Column Actually
                         'status' => 'on', //Probale Value on and off
                         'head' => array( // This will be TH , imean column Head.
-                            'content' => 'Products Details',
-                            'class' =>  'single_products',
+                            'content' => 'Purchase',
+                            'class' =>  'purchase_column',
                             'style' => array(
                                 'color' => 'white',
                                 'font-size'=> '18px',
@@ -86,18 +85,18 @@ if( isset( $data ) && empty( $data ) ){
                                 'attribute' => array('some' => 'nothing'),
                                 'settings'  => false,
                             ),
-                            
+                        /*    
                             'shortcode' => array(
                                 'tag'   => false,
                                 'content' => "[thingToShow id='%ID%' sku='%sku%' title='%title%' id='%ID%' id='%ID%']"
                             ),
                             //'var_dump' => false,
-                        
+                        */
                             
                             'action' => array( //Action Item, Where available Add to cart Button Actually
                                 'tag'   => 'div',
-                                'class' => 'wpt_action',
-                                'id'    => 'action_unique_id',
+                                'class' => 'ultratable-action-items',
+                                //'id'    => 'action_unique_id',
                                 'style' => array( 'color' => 'black' ),
                                 'attribute' => array('some' => 'nothing'),
                                 'settings'  => array(
@@ -111,8 +110,8 @@ if( isset( $data ) && empty( $data ) ){
                     array( //This is A Collumn | In Mobile, Now set Only One Column Actually
                         'status' => 'off', //Probale Value on and off
                         'head' => array( // This will be TH , imean column Head.
-                            'content' => 'Products Details',
-                            'class' =>  'single_products',
+                            'content' => 'Extras',
+                            'class' =>  'extra-columns',
                             'style' => array(
                                 'color' => 'white',
                                 'font-size'=> '18px',
@@ -124,7 +123,7 @@ if( isset( $data ) && empty( $data ) ){
                             ),
                         ),
                         'wrapper' => array( //Wrapper of All Items, it will be TD actually
-                            'id' => 'td_id',
+                            'id' => 'extra-col',
                             'class' => 'tr_class',
                             'attribute'=> array(
                                 'td_some' => 'tr nothing',
@@ -132,28 +131,29 @@ if( isset( $data ) && empty( $data ) ){
                             ),
                         ),
                         'items' => array(
-                        
-                            'description' => array(
-                                'tag'   => 'section',
-                                'class' => 'my description',
-                            ),
-                            'action' => array( //Action Item, Where available Add to cart Button Actually
-                                'tag'   => 'div',
-                                'class' => 'wpt_action',
-                                'id'    => 'action_unique_id',
-                                'style' => array( 'color' => 'black' ),
-                                'attribute' => array('some' => 'nothing'),
-                                'settings'  => array(
-                                    'type' => 'advance', //Can be two types: simple and advance. in single: custom code addToCart | default_wooCommerce add to cart
-                                ),
-                            ),
-                            
                             
                         ),
                     ),
                     
                 ),
+                
             ),
+            'tablet' => array(
+                'label' => __( 'Tablet Columns', 'ultratable' ),
+                'status' => 'on',
+                'columns' => array(
+                ),
+            ),
+            
+            
+            
+            'mobile' => array(
+                'label' => __( 'Mobile Columns', 'ultratable' ),
+                'status' => 'on',
+                'columns' => array(
+                ),
+            ),
+            
             
         ),
         'head' => 'on' //To Show or Hide Table Head
