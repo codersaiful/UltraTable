@@ -27,6 +27,7 @@ $tr_class = implode(" ", $tr_class_arr);
     >
     <?php
     foreach( $current_tr as $tr_key => $row ){
+    $row_style_str = isset( $row['style_str'] ) && !empty( $row['style_str'] ) ? $row['style_str'] : '';
     $td_class = isset( $row['wrapper']['class'] ) ? $row['wrapper']['class'] : 'wpt_per_td';
     $td_class_arr = array(
         'wpt_td',
@@ -47,6 +48,7 @@ $tr_class = implode(" ", $tr_class_arr);
         colspan="<?php echo esc_attr( $collspan ); ?>" 
         class="<?php echo esc_attr( $td_class );?>" 
         data-col_no='<?php echo esc_attr( $tr_key ); ?>'
+        style='<?php echo esc_attr( $row_style_str ); ?>'
         id="<?php echo esc_attr( 'td_pr_' . $product_id . '_col_' . $tr_key ); ?>" 
         >
         <?php

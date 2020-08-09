@@ -102,6 +102,13 @@ foreach( $suppoeted_device as $device_key ){
                         <label>Column Class</label>
                         <input name="<?php echo esc_attr( $name_prefix ); ?>[head][class]" value="<?php echo esc_attr( $head_class ); ?>" class="ua_input">
                     </p>
+                    <?php
+$head_prefix = $name_prefix . '[head]';
+/**
+ * For CSS Style Area on Each Each Item Area at the bottom
+ */
+do_action( 'ultratable_admin_style_area', $head_prefix, $supported_css_property, $colKey, $columnArr['head'], $device_key, $data, $post );
+                    ?>
                     
                     <!-- More Hidden For Wrapper -->
                     <?php 

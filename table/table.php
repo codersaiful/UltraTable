@@ -36,9 +36,10 @@ function wpt_table_generate( $atts ){
 
     //WPT_ARGS_Manager::sanitize($datas);
     WPT_TABLE::init( $datas );
-    echo '<pre>';
-    print_r($datas);
-    echo '</pre>';
+    
+    //echo '<pre>';
+    //print_r($datas['device']);
+    //echo '</pre>';
     $name = isset( $datas['name'] ) ? $datas['name'] : false;
     $title = isset( $datas['title'] ) ? $datas['title'] : false;
     $class = isset( $datas['class'] ) && is_array( $datas['class'] ) ? $datas['class'] : array( 'wpt_product_table' );
@@ -51,8 +52,11 @@ function wpt_table_generate( $atts ){
     $wrapper_div_class = implode(" div_", $class);
     $wrapper_table_class = implode(" table_", $class);
     $wrapper_footer_class = implode(" footer_", $class);
+    $device_name = WPT_TABLE::getDevice();
+    $device_style_str = isset( $datas['device'][$device_name]['style_str'] ) ? $datas['device'][$device_name]['style_str'] : '';
+
     ?>
-<div class="wpt_main_wrapper <?php echo esc_attr( $wrapper_class ); ?>">
+<div class="wpt_main_wrapper device-<?php echo esc_attr( $device_name ); ?> <?php echo esc_attr( $wrapper_class ); ?>">
     <div class="wpt_header <?php echo esc_attr( $wrapper_header_class ); ?>">
         <?php
         //Universal Action for 
@@ -61,7 +65,10 @@ function wpt_table_generate( $atts ){
         do_action( 'wtp_header_' . $POST_ID );
         ?>
     </div>
-    <div class="wpt_table_div <?php echo esc_attr( $wrapper_div_class ); ?>">
+    <div 
+        class="wpt_table_div <?php echo esc_attr( $wrapper_div_class ); ?>"
+        style="<?php echo esc_attr( $device_style_str ); ?>"
+         >
         <table class="wpt_table <?php echo esc_attr( $wrapper_table_class ); ?>">
             <?php
             //Include and Generate Table Head Tr here.

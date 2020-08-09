@@ -17,6 +17,7 @@ $tr_class = implode(" ", $tr_class_arr);
     <?php
     foreach( $head as $h_col_no => $h_column ){
         $tag = isset( $h_column['tag'] ) ? $h_column['tag'] : false;
+        $head_style_str = isset( $h_column['style_str'] ) && !empty( $h_column['style_str'] ) ? $h_column['style_str'] : '';
         $content = isset( $h_column['content'] ) ? $h_column['content'] : false;
         $class = isset( $h_column['class'] ) ? $h_column['class'] : false;
         $class .= " " . "column_{$POST_ID}_" . $h_col_no . ' collumn_no_' . $h_col_no;
@@ -36,7 +37,9 @@ $tr_class = implode(" ", $tr_class_arr);
     ?>
         <th data-col_no='<?php echo esc_attr( $h_col_no ); ?>' 
             data-post_id='<?php echo esc_attr( $POST_ID ); ?>'
-            class="<?php echo esc_attr( $class ); ?>" <?php echo $all_attributes; ?>>
+            class="<?php echo esc_attr( $class ); ?>" 
+            style="<?php echo esc_attr( $head_style_str ); ?>" 
+                <?php echo $all_attributes; ?>>
                 <?php echo $h_total_content; ?>
         </th>
     <?php

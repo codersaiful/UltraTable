@@ -129,8 +129,10 @@ if( !function_exists( 'ultratable_data_manipulation_on_save' ) ){
             $data['device'][$devc_key]['style_str'] = isset( $device['style'] ) && !empty( $device['style'] ) ? ultratable_convert_style_from_arr( $device['style'] ) : '';
             //var_dump($devc_key,);
             $columns = isset( $device['columns'] ) && is_array( $device['columns'] ) ? $device['columns'] : array();
-            foreach( $columns as $col_key => $col ){                
+            foreach( $columns as $col_key => $col ){       
+                var_dump($col);
                 $data['device'][$devc_key]['columns'][$col_key]['style_str'] = isset( $col['style'] ) && !empty( $col['style'] ) ? ultratable_convert_style_from_arr( $col['style'] ) : '';
+                $data['device'][$devc_key]['columns'][$col_key]['head']['style_str'] = isset( $col['head']['style'] ) && !empty( $col['head']['style'] ) ? ultratable_convert_style_from_arr( $col['head']['style'] ) : '';
                 $items = isset( $col['items'] ) && is_array( $col['items'] ) ? $col['items'] : array();
                 foreach( $items as $item_key=>$item ){
                     //var_dump($data['device'][$devc_key]['columns'][$col_key]['items'][$item_key]);
