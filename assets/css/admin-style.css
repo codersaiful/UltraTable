@@ -1,9 +1,11 @@
 .ultratable-device-head .switch {
-    margin-left: 15px;
+    margin-right: 0;
+    float: right;
 }
 
 .ultratable-device-head {
-    display: flex;
+    display: block;
+    height: 59px;
 }
 
 .ultratable-each-column {
@@ -101,4 +103,9 @@
     padding: 9px;
     background: #e4e4e42e;
     margin-bottom: 3px;
+}
+.ultratable-device-head h1 {
+    float: left;
+    font-size: 22px;
+    color: black;
 }

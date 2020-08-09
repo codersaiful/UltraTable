@@ -16,7 +16,7 @@ jQuery(document).ready(function($){
         });
         
         $('body.ultratable').on('click','.control-icons-edit,.column-head',function(e){
-            $(this).parents('.ultratable-each-column').find('.column-details').fadeToggle();
+            $(this).parents('.ultratable-each-column').find('.column-details').toggle();
         });
         
         
