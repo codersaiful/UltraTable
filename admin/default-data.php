@@ -19,9 +19,7 @@ if( ( isset( $data ) && empty( $data ) ) || isset( $_GET['reset'] ) ){
                             'content' => 'Products',
                             'class' =>  'single_products',
                             'style' => array(
-                                'color' => 'white',
-                                'font-size'=> '18px',
-                                'background' => 'red'
+                                'color' => 'black',
                             ),
                             'attribute' => array(
                                 'something' => 'nothing', //These will go to as Att of this Head or TH tag
@@ -59,9 +57,7 @@ if( ( isset( $data ) && empty( $data ) ) || isset( $_GET['reset'] ) ){
                             'content' => 'Purchase',
                             'class' =>  'purchase_column',
                             'style' => array(
-                                'color' => 'white',
-                                'font-size'=> '18px',
-                                'background' => 'red'
+                                'color' => 'black',
                             ),
                             'attribute' => array(
                                 'something' => 'nothing', //These will go to as Att of this Head or TH tag
@@ -112,11 +108,7 @@ if( ( isset( $data ) && empty( $data ) ) || isset( $_GET['reset'] ) ){
                         'head' => array( // This will be TH , imean column Head.
                             'content' => 'Extras',
                             'class' =>  'extra-columns',
-                            'style' => array(
-                                'color' => 'white',
-                                'font-size'=> '18px',
-                                'background' => 'red'
-                            ),
+                            'style' => array(),
                             'attribute' => array(
                                 'something' => 'nothing', //These will go to as Att of this Head or TH tag
                                 'another'   => 'other',

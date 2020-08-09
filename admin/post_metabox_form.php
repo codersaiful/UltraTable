@@ -28,6 +28,7 @@ $supported_css_property = array(
     'border'=>'Border',
     'padding'=>'Padding',
     'margin'=>'margin',
+    'width'=>'Width',
 );
 $supported_css_property = apply_filters( 'ultratable_supported_css_property',$supported_css_property, $data, $post_id, $post, $tabs );
 
