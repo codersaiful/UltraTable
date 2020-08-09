@@ -53,31 +53,34 @@ if( !function_exists( 'ultratable_css_property_adding' ) ){
     /**
      * 
      * Using Following Filter: 
-     * do_action( 'ultratable_admin_items_bottom', $item_name_prefix, $itemKey, $item, $colKey, $columnArr, $device_key, $supported_items,$supported_css_property, $data, $post_id, $post, $tabs ); 
+     * do_action( 'ultratable_admin_style_area', $item_name_prefix, $supported_css_property, $itemKey, $item, $colKey, $columnArr, $device_key );
      * 
      * @global type $current_screen
      * @param type $data
      * @param type $post_id
      * @return Array Return Data Arg for UtraTable type post
      */
-    function ultratable_css_property_adding( $item_name_prefix, $itemKey, $item, $colKey, $columnArr, $device_key, $supported_items,$supported_css_property ){
+    function ultratable_css_property_adding( $item_name_prefix, $supported_css_property, $itemKey, $item ){
+        
         //var_dump($itemKey, $item, $colKey, $columnArr, $device_key, $supported_items,$supported_css_property);
         //var_dump($item_name_prefix,$supported_css_property);
         $style                = isset( $item['style'] ) ? $item['style'] : false;
-
+        var_dump($supported_css_property);
         foreach( $supported_css_property as $style_key => $label ){
             $value = isset( $style[ $style_key ] ) ? $style[ $style_key ] : false;
             ?>
-<p>
-    <lable><?php echo esc_html($label); ?></lable>
-<input name="<?php echo esc_attr($item_name_prefix); ?>[style][<?php echo esc_attr($style_key); ?>]" value="<?php echo esc_attr( $value ); ?>" placeholder="<?php echo esc_attr($label); ?>">   
-</p> 
+            <p class="each-style each-style-<?php echo esc_attr( $itemKey ); ?>">
+                <lable><?php echo esc_html($label); ?></lable>
+                <input name="<?php echo esc_attr($item_name_prefix); ?>[style][<?php echo esc_attr($style_key); ?>]" 
+                       value="<?php echo esc_attr( $value ); ?>" 
+                       placeholder="<?php echo esc_attr($label); ?>">   
+            </p> 
             <?php
         }
         
     }
 }
-add_filter( 'ultratable_admin_items_bottom', 'ultratable_css_property_adding', 10, 8 );
+add_action( 'ultratable_admin_style_area', 'ultratable_css_property_adding', 10, 4 );
 
 //add_action( 'admin_init', 'wpse_80112',99999 );
 
