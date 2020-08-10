@@ -19,6 +19,15 @@ jQuery(document).ready(function($){
             $(this).parents('.ultratable-each-column').find('.column-details').toggle();
         });
         
+        $('body.ultratable').on('click','.ultratable-style-wrapper .style-heading',function(e){
+            $(this).parents('.ultratable-style-wrapper').find('.ultratable-style-body').toggle();
+        });
+        
+        $('body.ultratable').on('click','.ultratable-style-wrapper .ultratable-reset-style',function(e){
+            e.preventDefault();
+            $(this).parents('.ultratable-style-wrapper').find('.ultratable-style-body input').val('');
+        });
+        
         
         
         $('body.ultratable').on('click','.control-icons-delete',function(e){
