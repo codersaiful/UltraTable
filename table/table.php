@@ -59,9 +59,9 @@ function wpt_table_generate( $atts ){
     <div class="wpt_header <?php echo esc_attr( $wrapper_header_class ); ?>">
         <?php
         //Universal Action for 
-        do_action( 'ultratable_header', $POST_ID );
+        do_action( 'ultratable_header', $args, $datas, $atts, $POST_ID );
         //Indivisual Action for Specific Table
-        do_action( 'ultratable_header_' . $POST_ID );
+        do_action( 'ultratable_header_' . $POST_ID, $args, $datas, $atts );
         ?>
     </div>
     <div 
@@ -131,9 +131,9 @@ function wpt_table_generate( $atts ){
         
         <?php
         //Universal Action for 
-        do_action( 'ultratable_footer', $POST_ID );
+        do_action( 'ultratable_footer', $args, $datas, $atts, $POST_ID );
         //Indivisual Action for Specific Table
-        do_action( 'ultratable_footer_' . $POST_ID );
+        do_action( 'ultratable_footer_' . $POST_ID, $args, $datas, $atts );
         ?>
     </div>
 </div>

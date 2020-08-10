@@ -15,9 +15,15 @@ $tabs       = array(
 );
 $supported_items = array(
     'action'        =>  'Action',
-    'content'=>'Content',
-    'price'=>'price',
-    'quantity'=>'Quantity',
+    'content'       =>'Content/Description',
+    'price'         =>'price',
+    'quantity'      =>'Quantity Box',
+    'add-to-cart'      =>'Add to cart Button',
+    'product-thumbnails'=> 'Thumbs',
+    'short-description'=> 'Short Description',
+    'single_products'=> 'Single Products',
+    'single_products_after_summary'=> 'Summerry',
+    'var_dump'=> 'var_dump (For Developer Only)',    
 );
 $supported_items = apply_filters( 'ultratable_supported_items',$supported_items, $data, $post_id, $post, $tabs );
 

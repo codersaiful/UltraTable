@@ -134,13 +134,13 @@
     cursor: pointer;
 }
 .ultratable-style-wrapper .ultratable-style-body{display: none;padding:10px;}
-.ultratable-style-wrapper .style-heading {margin: 0;padding-left: 10px;cursor: pointer;}
+.ultratable-style-wrapper .style-heading {margin: 0;padding-left: 10px;cursor: pointer;font-weight: normal;}
 .ultratable-style-wrapper .style-heading:hover {background: #f4f9fd;}
 
 .ultratable-style-wrapper .style-heading:after {
     content: "\f464";
     font-family: dashicons;
-    padding: 12px;
+    padding: 5px 12px;
     display: inline-block;
     font-size: 12px;
 }
