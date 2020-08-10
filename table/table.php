@@ -25,14 +25,13 @@ function wpt_table_generate( $atts ){
 
     
     $args = isset( $datas['args'] ) ? $datas['args'] : array( 'post_type' => array('product'), 'post_status' => 'publish' );
-    /*        
-            array(
-        'posts_per_page' => 8,
-        'post_type' => array('product'), //, 'product_variation','product'
-        'post_status'   =>  'publish',
-    );
-     * 
-     */
+    //Add Filter for Args for Table
+    $args = apply_filters( 'ultratable_table_args', $args, $datas, $atts, $POST_ID );
+    $args = apply_filters( 'ultratable_table_args_' . $POST_ID, $args, $datas, $atts );
+    
+    //Add Filter for Data Here name is: $datas
+    $datas = apply_filters( 'ultratable_table_data', $datas, $args, $atts, $POST_ID );
+    $datas = apply_filters( 'ultratable_table_data_' . $POST_ID, $datas, $args, $atts );
 
     //WPT_ARGS_Manager::sanitize($datas);
     WPT_TABLE::init( $datas );
@@ -60,9 +59,9 @@ function wpt_table_generate( $atts ){
     <div class="wpt_header <?php echo esc_attr( $wrapper_header_class ); ?>">
         <?php
         //Universal Action for 
-        do_action( 'wtp_header', $POST_ID );
+        do_action( 'ultratable_header', $POST_ID );
         //Indivisual Action for Specific Table
-        do_action( 'wtp_header_' . $POST_ID );
+        do_action( 'ultratable_header_' . $POST_ID );
         ?>
     </div>
     <div 
@@ -132,9 +131,9 @@ function wpt_table_generate( $atts ){
         
         <?php
         //Universal Action for 
-        do_action( 'wtp_footer', $POST_ID );
+        do_action( 'ultratable_footer', $POST_ID );
         //Indivisual Action for Specific Table
-        do_action( 'wtp_footer_' . $POST_ID );
+        do_action( 'ultratable_footer_' . $POST_ID );
         ?>
     </div>
 </div>

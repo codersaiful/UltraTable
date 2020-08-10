@@ -94,5 +94,5 @@ foreach ( $tabs as $tab => $title ) {
     echo '</div>'; //End of Tab content div
     $active_tab_content = false; //Active tab content only for First
 }
-var_dump($data);
+//var_dump($data);
 do_action( 'ultratable_post_form_bottom',$data, $post, $tabs );
