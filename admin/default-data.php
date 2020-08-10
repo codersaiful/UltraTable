@@ -18,9 +18,11 @@ if( ( isset( $data ) && empty( $data ) ) || isset( $_GET['reset'] ) ){
                         'head' => array( // This will be TH , imean column Head.
                             'content' => 'Products',
                             'class' =>  'single_products',
+                            /*
                             'style' => array(
                                 'color' => 'black',
                             ),
+                            */
                             'attribute' => array(
                                 'something' => 'nothing', //These will go to as Att of this Head or TH tag
                                 'another'   => 'other',
@@ -39,7 +41,7 @@ if( ( isset( $data ) && empty( $data ) ) || isset( $_GET['reset'] ) ){
                             'product-title' => array(),
                             'short-description' => array(
                                 'class' => 'my_short-description',
-                                'id'    => 'item sprice id',
+                                //'id'    => 'item sprice id',
                                 'style' => array( 'color' => 'black' ),
                                 'attribute' => array('some' => 'nothing'),
                                 'settings'  => false,
@@ -56,9 +58,6 @@ if( ( isset( $data ) && empty( $data ) ) || isset( $_GET['reset'] ) ){
                         'head' => array( // This will be TH , imean column Head.
                             'content' => 'Purchase',
                             'class' =>  'purchase_column',
-                            'style' => array(
-                                'color' => 'black',
-                            ),
                             'attribute' => array(
                                 'something' => 'nothing', //These will go to as Att of this Head or TH tag
                                 'another'   => 'other',
@@ -77,7 +76,6 @@ if( ( isset( $data ) && empty( $data ) ) || isset( $_GET['reset'] ) ){
                             'quantity' => array(
                                 'class' => 'item_price_class',
                                 'id'    => 'item price id',
-                                'style' => array( 'color' => 'black' ),
                                 'attribute' => array('some' => 'nothing'),
                                 'settings'  => false,
                             ),
@@ -93,7 +91,6 @@ if( ( isset( $data ) && empty( $data ) ) || isset( $_GET['reset'] ) ){
                                 'tag'   => 'div',
                                 'class' => 'ultratable-action-items',
                                 //'id'    => 'action_unique_id',
-                                'style' => array( 'color' => 'black' ),
                                 'attribute' => array('some' => 'nothing'),
                                 'settings'  => array(
                                     'type' => 'advance', //Can be two types: simple and advance. in single: custom code addToCart | default_wooCommerce add to cart

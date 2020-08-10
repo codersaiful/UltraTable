@@ -63,29 +63,32 @@ if( !function_exists( 'ultratable_css_property_adding' ) ){
     function ultratable_css_property_adding( $item_name_prefix, $supported_css_property, $itemKey, $item ){
         $h3_extra = isset( $item['location'] ) && !empty( $item['location'] ) ? __( ' Specially for ', 'ultratable' ) . $item['location'] : '';
         ?>
-        <div class="style-wrapper<?php echo esc_attr( $itemKey ); ?>">
-            <h3><?php echo esc_html(  'Style Area', 'ultratable' ) . $h3_extra; ?></h3>
-        <table class="ultraaddons-table">    
-        <?php
-        $style                = isset( $item['style'] ) ? $item['style'] : false;
-        foreach( $supported_css_property as $style_key => $label ){
-            $value = isset( $style[ $style_key ] ) ? $style[ $style_key ] : false;
-            ?>
+        <div class="ultratable-style-wrapper style-wrapper-<?php echo esc_attr( $itemKey ); ?>">
+            <h3 class="style-heading"><?php echo esc_html( 'Style Area', 'ultratable' ) . $h3_extra; ?></h3>
+            <div class="ultratable-style-body">
+                <table class="ultraaddons-table">    
+                <?php
+                $style                = isset( $item['style'] ) ? $item['style'] : false;
+                foreach( $supported_css_property as $style_key => $label ){
+                    $value = isset( $style[ $style_key ] ) ? $style[ $style_key ] : false;
+                    ?>
 
-            <tr class="each-style each-style-<?php echo esc_attr( $itemKey ); ?>">
-                <th><label><?php echo esc_html($label); ?></label></th>
-                <td>
-                    <input 
-                        class="ua_input"
-                        name="<?php echo esc_attr($item_name_prefix); ?>[style][<?php echo esc_attr($style_key); ?>]" 
-                        value="<?php echo esc_attr( $value ); ?>" 
-                        placeholder="<?php echo esc_attr($label); ?>">   
-                </td>
-            </tr>
-            <?php
-        }
-        ?>
-        </table>    
+                    <tr class="each-style each-style-<?php echo esc_attr( $itemKey ); ?>">
+                        <th><label><?php echo esc_html($label); ?></label></th>
+                        <td>
+                            <input 
+                                class="ua_input"
+                                name="<?php echo esc_attr($item_name_prefix); ?>[style][<?php echo esc_attr($style_key); ?>]" 
+                                value="<?php echo esc_attr( $value ); ?>" 
+                                placeholder="<?php echo esc_attr($label); ?>">   
+                        </td>
+                    </tr>
+                    <?php
+                }
+                ?>
+                </table>  
+                    <a href="#" class="ultratable-reset-style"><?php echo esc_html( 'Reset Style', 'ultratable' ); ?></a>
+            </div>
         </div>    
         <?php
     }

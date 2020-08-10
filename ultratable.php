@@ -148,6 +148,8 @@ class ULTRATABLE{
         
         //include_once $this->path('BASE_DIR','table/table.php');
         
+        include_once ULTRATABLE_BASE_DIR . '/includes/action-hooks.php';
+        
         if( is_admin() ){
             include_once ULTRATABLE_BASE_DIR . '/admin/functions.php';
             include_once ULTRATABLE_BASE_DIR . '/admin/admin-menu.php';
@@ -227,5 +229,5 @@ class ULTRATABLE{
 /**
 * Plugin Install and Uninstall
 */
-register_activation_hook(__FILE__, array( 'ULTRATABLE','install' ) );
-register_deactivation_hook( __FILE__, array( 'ULTRATABLE','uninstall' ) );
+//register_activation_hook(__FILE__, array( 'ULTRATABLE','install' ) );
+//register_deactivation_hook( __FILE__, array( 'ULTRATABLE','uninstall' ) );

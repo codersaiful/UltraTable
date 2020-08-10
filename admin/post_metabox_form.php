@@ -11,13 +11,19 @@ $tabs       = array(
     'column'    => esc_html( 'Column', 'ultratable' ),
     'query'     => esc_html( 'Query', 'ultratable' ),
     'settings'  => esc_html( 'Settings', 'ultratable' ),
-    'design'    => esc_html( 'Design', 'ultratable' ),
+    //'design'    => esc_html( 'Design', 'ultratable' ),
 );
 $supported_items = array(
     'action'        =>  'Action',
-    'content'=>'Content',
-    'price'=>'price',
-    'quantity'=>'Quantity',
+    'content'       =>'Content/Description',
+    'price'         =>'price',
+    'quantity'      =>'Quantity Box',
+    'add-to-cart'      =>'Add to cart Button',
+    'product-thumbnails'=> 'Thumbs',
+    'short-description'=> 'Short Description',
+    'single_products'=> 'Single Products',
+    'single_products_after_summary'=> 'Summerry',
+    'var_dump'=> 'var_dump (For Developer Only)',    
 );
 $supported_items = apply_filters( 'ultratable_supported_items',$supported_items, $data, $post_id, $post, $tabs );
 
@@ -94,5 +100,5 @@ foreach ( $tabs as $tab => $title ) {
     echo '</div>'; //End of Tab content div
     $active_tab_content = false; //Active tab content only for First
 }
-var_dump($data);
+//var_dump($data);
 do_action( 'ultratable_post_form_bottom',$data, $post, $tabs );
