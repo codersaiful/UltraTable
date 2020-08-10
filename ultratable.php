@@ -148,7 +148,7 @@ class ULTRATABLE{
         
         //include_once $this->path('BASE_DIR','table/table.php');
         
-        include_once ULTRATABLE_BASE_DIR . '/includes/action-hooks.php';
+        //include_once ULTRATABLE_BASE_DIR . '/includes/action-hooks.php';
         
         if( is_admin() ){
             include_once ULTRATABLE_BASE_DIR . '/admin/functions.php';
