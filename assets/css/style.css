@@ -1,0 +1,20 @@
+.ultratable_table_div table, .ultratable_table_div tr, .ultratable_table_div th, .ultratable_table_div td {
+    border-collapse: collapse;
+    border: 1px solid #9E9E9E;
+}
+
+table.ultratable_table.ultratable_product_table {
+    width: 100%;
+}
+
+.ultratable_main_wrapper.ultratable_product_table {
+    width: 100%;
+    display: block;
+}
+.ultratable_table_div td{
+	border-left-color: #eee;
+	border-right-color: #eee;
+}
+table:not( .has-background ) tbody td {
+    background-color: #ffffff;
+}

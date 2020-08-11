@@ -2,14 +2,14 @@
 defined( 'ABSPATH' ) || exit;
 
 //include __DIR__ . '/classes/class_shortcode.php';
-include __DIR__ . '/classes/class_wpt_table.php';
-include __DIR__ . '/classes/wpt_arg_manager.php';
+include __DIR__ . '/classes/class_ultratable_table.php';
+include __DIR__ . '/classes/ultratable_arg_manager.php';
 
-add_shortcode('UltraTable', 'wpt_table_generate');
+add_shortcode('UltraTable', 'ultratable_table_generate');
 
-function wpt_table_generate( $atts ){
+function ultratable_table_generate( $atts ){
     ob_start();
-    //$wpt_short = new WPT_Shortcode_Products();
+    //$ultratable_short = new WPT_Shortcode_Products();
     
     if( isset( $atts['id'] ) && !empty( $atts['id'] ) && is_numeric( $atts['id'] ) && get_post_type( (int) $atts['id'] ) == 'ultratable' ){
         $POST_ID = $atts['id'];//isset( $atts['id'] ) ? $atts['id'] : false;
@@ -41,11 +41,11 @@ function wpt_table_generate( $atts ){
     //echo '</pre>';
     $name = isset( $datas['name'] ) ? $datas['name'] : false;
     $title = isset( $datas['title'] ) ? $datas['title'] : false;
-    $class = isset( $datas['class'] ) && is_array( $datas['class'] ) ? $datas['class'] : array( 'wpt_product_table' );
+    $class = isset( $datas['class'] ) && is_array( $datas['class'] ) ? $datas['class'] : array( 'ultratable_product_table' );
     $notfound = false;
     
 
-    $class[] = 'wpt_table_' . $POST_ID;
+    $class[] = 'ultratable_table_' . $POST_ID;
     $wrapper_class = implode(" ", $class);
     $wrapper_header_class = implode(" header_", $class);
     $wrapper_div_class = implode(" div_", $class);
@@ -66,8 +66,8 @@ function wpt_table_generate( $atts ){
 
     $product_loop = new WP_Query( $args );
     ?>
-<div class="wpt_main_wrapper device-<?php echo esc_attr( $device_name ); ?> <?php echo esc_attr( $wrapper_class ); ?>">
-    <div class="wpt_header <?php echo esc_attr( $wrapper_header_class ); ?>">
+<div class="ultratable_main_wrapper device-<?php echo esc_attr( $device_name ); ?> <?php echo esc_attr( $wrapper_class ); ?>">
+    <div class="ultratable_header <?php echo esc_attr( $wrapper_header_class ); ?>">
         <?php
         //Universal Action for 
         do_action( 'ultratable_header', $args, $datas, $atts, $POST_ID, $product_loop );
@@ -76,11 +76,11 @@ function wpt_table_generate( $atts ){
         ?>
     </div>
     <div 
-        class="wpt_table_div <?php echo esc_attr( $wrapper_div_class ); ?>"
+        class="ultratable_table_div <?php echo esc_attr( $wrapper_div_class ); ?>"
         
          >
         <table 
-            class="wpt_table <?php echo esc_attr( $wrapper_table_class ); ?>"
+            class="ultratable_table <?php echo esc_attr( $wrapper_table_class ); ?>"
             style="<?php echo esc_attr( $device_style_str ); ?>"   
                >
             <?php
@@ -132,9 +132,9 @@ function wpt_table_generate( $atts ){
             
         </table>
     </div>
-    <div class="wpt_footer <?php echo esc_attr( $wrapper_footer_class ); ?>">
+    <div class="ultratable_footer <?php echo esc_attr( $wrapper_footer_class ); ?>">
         <?php
-        $notfound = apply_filters( 'wpt_notfound_msg', $notfound );
+        $notfound = apply_filters( 'ultratable_notfound_msg', $notfound );
         if( $notfound ){
             include_once 'includes/notfound.php';
         }
