@@ -4,6 +4,8 @@ $supported_terms    = array(
     'product_tag'       =>  esc_html( 'Product Tags', 'ultratable' ),
 );
 $supported_terms    = apply_filters( 'ultratable_supported_terms', $supported_terms, $data, $post, $tabs  );
+
+$posts_per_page           = isset( $data['args']['posts_per_page'] ) ? $data['args']['posts_per_page'] : apply_filters( 'ultratable_admin_query_perpage', 20, $data, $post, $tabs );
 ?>
 <input type="hidden" name="data[args][post_type]" value="product">
 <input type="hidden" name="data[args][post_status]" value="publish">
@@ -12,7 +14,7 @@ $supported_terms    = apply_filters( 'ultratable_supported_terms', $supported_te
         <tr>
             <th><label>Products Per Page</label></th>
             <td>
-                <input type="number" name="data[args][posts_per_page]" value="20" class="ua_input">
+                <input type="number" name="data[args][posts_per_page]" value="<?php echo esc_attr( $posts_per_page ); ?>" class="ua_input">
                 <p>Posts amount in perpage for your table</p>
             </td>
         </tr>
