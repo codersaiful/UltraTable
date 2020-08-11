@@ -53,15 +53,26 @@ function wpt_table_generate( $atts ){
     $wrapper_footer_class = implode(" footer_", $class);
     $device_name = WPT_TABLE::getDevice();
     $device_style_str = isset( $datas['device'][$device_name]['style_str'] ) ? $datas['device'][$device_name]['style_str'] : '';
+    
+    
+    /**
+     * Arranging Args
+     */
+    /**
+     * Initialize Page Number
+     */
+    $page_number = ( get_query_var( 'page' ) ) ? get_query_var( 'page' ) : 1;
+    $args['paged'] =( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : $page_number;
 
+    $product_loop = new WP_Query( $args );
     ?>
 <div class="wpt_main_wrapper device-<?php echo esc_attr( $device_name ); ?> <?php echo esc_attr( $wrapper_class ); ?>">
     <div class="wpt_header <?php echo esc_attr( $wrapper_header_class ); ?>">
         <?php
         //Universal Action for 
-        do_action( 'ultratable_header', $args, $datas, $atts, $POST_ID );
+        do_action( 'ultratable_header', $args, $datas, $atts, $POST_ID, $product_loop );
         //Indivisual Action for Specific Table
-        do_action( 'ultratable_header_' . $POST_ID, $args, $datas, $atts );
+        do_action( 'ultratable_header_' . $POST_ID, $args, $datas, $atts, $product_loop );
         ?>
     </div>
     <div 
@@ -131,9 +142,9 @@ function wpt_table_generate( $atts ){
         
         <?php
         //Universal Action for 
-        do_action( 'ultratable_footer', $args, $datas, $atts, $POST_ID );
+        do_action( 'ultratable_footer', $args, $datas, $atts, $POST_ID, $product_loop );
         //Indivisual Action for Specific Table
-        do_action( 'ultratable_footer_' . $POST_ID, $args, $datas, $atts );
+        do_action( 'ultratable_footer_' . $POST_ID, $args, $datas, $atts, $product_loop );
         ?>
     </div>
 </div>
