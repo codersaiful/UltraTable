@@ -18,3 +18,49 @@ table.ultratable_table.ultratable_product_table {
 table:not( .has-background ) tbody td {
     background-color: #ffffff;
 }
+
+/* Pagination */
+.ultratable-pagination-wrapper {
+    text-align: center;
+    margin-bottom: 15px;
+}
+.ultratable-pagination-wrapper ul.page-numbers {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+.ultratable-pagination-wrapper ul.page-numbers li {
+    display: inline-block;
+    border-radius: 2px;
+    text-align: center;
+    vertical-align: top;
+    height: 30px;
+    position: relative;
+    cursor: pointer;
+    display: inline-block;
+    overflow: hidden;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    vertical-align: middle;
+    z-index: 1;
+    -webkit-transition: .3s ease-out;
+    transition: .3s ease-out;
+}
+
+.ultratable-pagination-wrapper ul.page-numbers li .page-numbers,
+.ultratable-pagination-wrapper ul.page-numbers li .page-numbers.current {
+    color: #444;
+    display: inline-block;
+    font-size: 1.2rem;
+    padding: 0 10px;
+    line-height: 30px;
+    text-decoration: none;
+}
+
+.ultratable-pagination-wrapper ul.page-numbers li .page-numbers.current {
+    background: #ee6e73;
+    color: #fff;
+}
