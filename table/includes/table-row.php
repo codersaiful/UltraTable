@@ -57,7 +57,7 @@ $tr_class = implode(" ", $tr_class_arr);
             foreach( $items as $item_keyword => $item ){
                 
                 //Item Manager, where from items file will handle
-                include $WPT_DIR_LINK . '/includes/item-manager.php';
+                include ULTRATABLE_TABLE_DIR . '/includes/item-manager.php';
                 
             }
         }

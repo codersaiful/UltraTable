@@ -62,6 +62,7 @@ if( !function_exists( 'ultratable_css_property_adding' ) ){
      */
     function ultratable_css_property_adding( $item_name_prefix, $supported_css_property, $itemKey, $item ){
         $h3_extra = isset( $item['location'] ) && !empty( $item['location'] ) ? __( ' Specially for ', 'ultratable' ) . $item['location'] : '';
+        $supported_css_property = apply_filters( 'ultratable_admin_supported_css_prop_inside', $supported_css_property, $item_name_prefix, $itemKey, $item );
         ?>
         <div class="ultratable-style-wrapper style-wrapper-<?php echo esc_attr( $itemKey ); ?>">
             <h3 class="style-heading"><?php echo esc_html( 'Style Area', 'ultratable' ) . $h3_extra; ?></h3>
@@ -134,18 +135,19 @@ if( !function_exists( 'ultratable_data_manipulation_on_save' ) ){
             //var_dump($devc_key,);
             $columns = isset( $device['columns'] ) && is_array( $device['columns'] ) ? $device['columns'] : array();
             foreach( $columns as $col_key => $col ){       
-                var_dump($col);
                 $data['device'][$devc_key]['columns'][$col_key]['style_str'] = isset( $col['style'] ) && !empty( $col['style'] ) ? ultratable_convert_style_from_arr( $col['style'] ) : '';
                 $data['device'][$devc_key]['columns'][$col_key]['head']['style_str'] = isset( $col['head']['style'] ) && !empty( $col['head']['style'] ) ? ultratable_convert_style_from_arr( $col['head']['style'] ) : '';
                 $items = isset( $col['items'] ) && is_array( $col['items'] ) ? $col['items'] : array();
                 foreach( $items as $item_key=>$item ){
-                    //var_dump($data['device'][$devc_key]['columns'][$col_key]['items'][$item_key]);
                 $data['device'][$devc_key]['columns'][$col_key]['items'][$item_key]['style_str'] = isset( $item['style'] ) && !empty( $item['style'] ) ? ultratable_convert_style_from_arr( $item['style'] ) : '';
                 }
                 
             }
         }
         //Style Manipulation Here End
+        
+        //Style Manipulation for Wrapper Tag
+        $data['style_str'] = isset( $data['style'] ) && !empty( $data['style'] ) ? ultratable_convert_style_from_arr( $data['style'] ) : '';
         
         //exit;
         return $data;

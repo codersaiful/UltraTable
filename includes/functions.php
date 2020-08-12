@@ -46,4 +46,91 @@ if( !function_exists( 'ultratable_pagination' ) ){
     }
 }
 add_action( 'ultratable_footer', 'ultratable_pagination', 10, 5 );
-//add_action( 'ultratable_header', 'ultratable_pagination', 10, 5 );
+add_action( 'ultratable_header', 'ultratable_pagination', 10, 5 );
+
+if( !function_exists( 'ultratable_pagination_sss' ) ){
+    //do_action( 'ultratable_footer', $args, $datas, $atts, $POST_ID );
+    /**
+     * 
+     * @global type $current_screen
+     * @param string $class
+     * @return string
+     */
+    function ultratable_pagination_sss( $args, $datas, $atts, $POST_ID, $product_loop ){
+  
+
+    }
+}
+add_action( 'ultratable_header', 'ultratable_pagination_sss', 10, 5 );
+
+if( !function_exists( 'ultratable_table_head_show_hide' ) ){
+    //do_action( 'ultratable_footer', $args, $datas, $atts, $POST_ID );
+    /**
+     * WPT_TABLE::is_table_head() && WPT_TABLE::get_head()
+     * 
+     * @global type $current_screen
+     * @param string $class
+     * @return string
+     */
+    function ultratable_table_head_show_hide( $bool,$args, $datas, $atts, $POST_ID, $product_loop ){
+        $count_on_page = $product_loop->post_count;
+        $show_on_notfound = true;
+        if( $count_on_page < 1 ){
+            $show_on_notfound = false;
+        }
+        $show_on_notfound = apply_filters( 'ultratable_thead_show_on_notfound', $show_on_notfound, $POST_ID);
+        if( WPT_TABLE::is_table_head() && WPT_TABLE::get_head() && $show_on_notfound ){
+            return true;
+        }
+        return;
+    }
+}
+add_filter( 'ultratable_table_head_show', 'ultratable_table_head_show_hide', 10, 6 );
+
+if( !function_exists( 'ultratable_post_count_msg' ) ){
+
+    function ultratable_post_count_msg( $args, $datas, $atts, $POST_ID, $product_loop ){
+        $validation = apply_filters( 'ultratable_post_count_validation', true, $args, $datas, $atts, $POST_ID );
+        if( !$validation ){
+            return;
+        }
+        $total = $product_loop->found_posts;
+        $count_on_page = $product_loop->post_count;
+        if( $count_on_page < 1 ){
+            return;
+        }
+        $msg = sprintf( __( 'There are %s products in %s', 'ultratable' ), $count_on_page, $total );
+        ?>
+        <div class="ultratable-count-msg">
+            <span><?php echo wp_kses_post( $msg ); ?></span>
+        </div>
+        <?php
+    }
+}
+//add_action( 'ultratable_header', 'ultratable_post_count_msg', 999, 5 );
+//add_action( 'ultratable_footer', 'ultratable_post_count_msg', 0, 5 );
+add_action( 'ultratable_before_table', 'ultratable_post_count_msg', 999, 5 );
+add_action( 'ultratable_after_table', 'ultratable_post_count_msg', 0, 5 );
+
+if( !function_exists( 'ultratable_notfound_msg' ) ){
+
+    function ultratable_notfound_msg( $args, $datas, $atts, $POST_ID, $product_loop ){
+        $validation = apply_filters( 'ultratable_notfound_validation', true, $args, $datas, $atts, $POST_ID );
+        if( !$validation ){
+            return;
+        }
+        $count_on_page = $product_loop->post_count;
+        if( $count_on_page > 0 ){
+            return;
+        }
+        $msg = __( 'There is not founded products.', 'ultratable' );
+
+        ?>
+        <div class="ultratable-notfound">
+            <span><?php echo wp_kses_post( $msg ); ?></span>
+        </div>
+        <?php
+    }
+}
+
+add_action( 'ultratable_product_notfound', 'ultratable_notfound_msg', 10, 5 );
