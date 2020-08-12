@@ -1,7 +1,7 @@
 <?php
 defined( 'ABSPATH' ) || exit;
 
-//include __DIR__ . '/classes/class_shortcode.php';
+//include ULTRATABLE_TABLE_DIR . '/classes/class_shortcode.php';
 include ULTRATABLE_TABLE_DIR . '/classes/class_ultratable_table.php';
 include ULTRATABLE_TABLE_DIR . '/classes/ultratable_arg_manager.php';
 
@@ -49,13 +49,26 @@ function ultratable_table_generate( $atts ){
     /**
      * Initialize Page Number
      */
-    $page_number = ( get_query_var( 'page' ) ) ? get_query_var( 'page' ) : 1;
+    $page_number = ( get_query_var( 'page' ) ) ? get_query_var( 'page' ) : apply_filters( 'ultratable_default_page_number', 1, $POST_ID );
     $args['paged'] =( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : $page_number;
 
     $product_loop = new WP_Query( $args );
-    var_dump($args);
+    //var_dump($product_loop);
+    
+    
     ?>
-<div class="ultratable_main_wrapper device-<?php echo esc_attr( $device_name ); ?> <?php echo esc_attr( $wrapper_class ); ?>">
+<div class="ultratable_main_wrapper device-<?php echo esc_attr( $device_name ); ?> <?php echo esc_attr( $wrapper_class ); ?>"  
+     data-post_id='<?php echo esc_attr( $POST_ID ); ?>'
+     data-atts='<?php echo esc_attr( wp_json_encode( $atts ) ); ?>'
+     data-args='<?php echo esc_attr( wp_json_encode( $args ) ); ?>'
+     data-args-backup='<?php echo esc_attr( wp_json_encode( $args ) ); ?>'
+     data-data='<?php echo esc_attr( wp_json_encode( $datas ) ); ?>'
+     <?php 
+     /**
+      * To Add Something at Wrapper Attribute
+      */
+     do_action( 'ultratable_wrapper_tag_attribute' ); ?>
+     >
     <div class="ultratable_header <?php echo esc_attr( $wrapper_header_class ); ?>">
         <?php
         //Universal Action for 
@@ -88,13 +101,7 @@ function ultratable_table_generate( $atts ){
          ?>
     </div>
     <div class="ultratable_footer <?php echo esc_attr( $wrapper_footer_class ); ?>">
-        <?php
-        $notfound = apply_filters( 'ultratable_notfound_msg', $notfound );
-        if( $notfound ){
-            include_once 'includes/notfound.php';
-        }
-        ?>
-        
+
         <?php
         //Universal Action for 
         do_action( 'ultratable_footer', $args, $datas, $atts, $POST_ID, $product_loop );
@@ -152,7 +159,7 @@ if( !function_exists( 'ultratable_table_full' ) ){
             <?php
             //Include and Generate Table Head Tr here.
             if( WPT_TABLE::is_table_head() && WPT_TABLE::get_head() ){
-            include 'includes/table-head.php';
+            include ULTRATABLE_TABLE_DIR . '/includes/table-head.php';
             } ?>
             
             
@@ -198,8 +205,12 @@ if( !function_exists( 'ultratable_table_full' ) ){
             
         </table>
         <?php 
+        //After Table And Speciall for Not founded Message
+        do_action( 'ultratable_product_notfound', $args, $datas, $atts, $POST_ID, $product_loop );
+        
         //After Table
         do_action( 'ultratable_after_table', $args, $datas, $atts, $POST_ID, $product_loop );
+        
     }
 }
 add_action( 'ultratable_full_table', 'ultratable_table_full', 10, 5 );

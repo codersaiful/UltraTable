@@ -62,3 +62,51 @@ if( !function_exists( 'ultratable_pagination_sss' ) ){
     }
 }
 add_action( 'ultratable_header', 'ultratable_pagination_sss', 10, 5 );
+
+if( !function_exists( 'ultratable_post_count_msg' ) ){
+
+    function ultratable_post_count_msg( $args, $datas, $atts, $POST_ID, $product_loop ){
+        $validation = apply_filters( 'ultratable_post_count_validation', true, $args, $datas, $atts, $POST_ID );
+        if( !$validation ){
+            return;
+        }
+        $total = $product_loop->found_posts;
+        $count_on_page = $product_loop->post_count;
+        if( $count_on_page < 1 ){
+            return;
+        }
+        $msg = sprintf( __( 'There are %s products in %s', 'ultratable' ), $count_on_page, $total );
+        ?>
+        <div class="ultratable-count-msg">
+            <p><?php echo wp_kses_post( $msg ); ?></p>
+        </div>
+        <?php
+    }
+}
+//add_action( 'ultratable_header', 'ultratable_post_count_msg', 999, 5 );
+//add_action( 'ultratable_footer', 'ultratable_post_count_msg', 0, 5 );
+add_action( 'ultratable_before_table', 'ultratable_post_count_msg', 999, 5 );
+add_action( 'ultratable_after_table', 'ultratable_post_count_msg', 0, 5 );
+
+if( !function_exists( 'ultratable_notfound_msg' ) ){
+
+    function ultratable_notfound_msg( $args, $datas, $atts, $POST_ID, $product_loop ){
+        $validation = apply_filters( 'ultratable_notfound_validation', true, $args, $datas, $atts, $POST_ID );
+        if( !$validation ){
+            return;
+        }
+        $count_on_page = $product_loop->post_count;
+        if( $count_on_page > 0 ){
+            return;
+        }
+        $msg = __( 'There is not founded products.', 'ultratable' );
+
+        ?>
+        <div class="ultratable-notfound">
+            <p><?php echo wp_kses_post( $msg ); ?></p>
+        </div>
+        <?php
+    }
+}
+
+add_action( 'ultratable_product_notfound', 'ultratable_notfound_msg', 10, 5 );
