@@ -2,8 +2,8 @@
 defined( 'ABSPATH' ) || exit;
 
 //include __DIR__ . '/classes/class_shortcode.php';
-include __DIR__ . '/classes/class_ultratable_table.php';
-include __DIR__ . '/classes/ultratable_arg_manager.php';
+include ULTRATABLE_TABLE_DIR . '/classes/class_ultratable_table.php';
+include ULTRATABLE_TABLE_DIR . '/classes/ultratable_arg_manager.php';
 
 add_shortcode('UltraTable', 'ultratable_table_generate');
 
@@ -69,8 +69,6 @@ function ultratable_table_generate( $atts ){
         
          >
         <?php 
-        //Before Table
-        do_action( 'ultratable_before_table', $args, $datas, $atts, $POST_ID, $product_loop );
         
         /**
          * Adding Table Content by using following Action Hook
@@ -82,8 +80,7 @@ function ultratable_table_generate( $atts ){
          */
         do_action( 'ultratable_full_table' . $POST_ID, $product_loop, $args, $datas, $atts ); 
         
-        //After Table
-        do_action( 'ultratable_after_table', $args, $datas, $atts, $POST_ID, $product_loop );
+        
         ?>
         
         
@@ -107,6 +104,9 @@ function ultratable_table_generate( $atts ){
     </div>
 </div>
     <?php
+    wp_reset_query(); //Added reset query before end Table just at Version 1.0.0
+    wp_reset_postdata();
+    
     if( isset( $_GET['var_dump'] ) ){
        echo '<pre>';
         print_r($datas);
@@ -130,6 +130,10 @@ if( !function_exists( 'ultratable_table_full' ) ){
      * @return string
      */
     function ultratable_table_full( $product_loop, $args, $datas, $atts, $POST_ID ){
+        //Before Table
+        do_action( 'ultratable_before_table', $args, $datas, $atts, $POST_ID, $product_loop );
+        
+        
         //WPT_ARGS_Manager::sanitize($datas);
         WPT_TABLE::init( $datas );
 
@@ -174,27 +178,28 @@ if( !function_exists( 'ultratable_table_full' ) ){
                     $current_tr = $table_row;
                     $rowtype = 'normal-row';
                     $collspan = 1;
-                    include 'includes/table-row.php';
+                    include ULTRATABLE_TABLE_DIR . '/includes/table-row.php';
 
                     if( $fullwidth ){
                        $rowtype = 'fullwidth'; 
                        $collspan = $collcount;
                        $current_tr = array( 'fullwidth' => $fullwidth );
-                       include 'includes/table-row.php';
+                       include ULTRATABLE_TABLE_DIR . '/includes/table-row.php';
                     }
                 
                 endwhile;
                 else:
                 //$notfound = __( 'Not founded', 'wpt' );    
                 endif;
-                wp_reset_query(); //Added reset query before end Table just at Version 1.0.0
-                wp_reset_postdata();
+                //wp_reset_query(); //Added reset query before end Table just at Version 1.0.0
+                //wp_reset_postdata();
                 ?>
             </tbody>
             
         </table>
         <?php 
-
+        //After Table
+        do_action( 'ultratable_after_table', $args, $datas, $atts, $POST_ID, $product_loop );
     }
 }
 add_action( 'ultratable_full_table', 'ultratable_table_full', 10, 5 );
