@@ -12,9 +12,9 @@ $item_default = 'pre_defined_item'; //Only for Class when Available and Default 
 //For using inside Item Template
 $settings = isset( $item['settings'] ) && !empty( $item['settings'] ) ? $item['settings'] : false;
 
-$validation = apply_filters( "wpt_" . $item_keyword . "_validation", true, $product, $POST_ID );
+$validation = apply_filters( "ultratable_" . $item_keyword . "_validation", true, $product, $POST_ID );
 
-$template_directory = apply_filters('wpt_template_directory', $WPT_DIR_LINK . '/item-template/', $item_keyword, $POST_ID, $product );
+$template_directory = apply_filters('ultratable_template_directory', ULTRATABLE_TABLE_DIR . '/item-template/', $item_keyword, $POST_ID, $product );
 
 $file = $template_directory . $item_keyword . '.php';
 
@@ -22,7 +22,7 @@ $file = $template_directory . $item_keyword . '.php';
  * Filter For Common Template Location
  * User able to change Any Template Location
  */
-$file = apply_filters( 'wpt_' . $item_keyword . '_template_file', $file, $item_keyword, $POST_ID, $args, $datas, $product );
+$file = apply_filters( 'ultratable_' . $item_keyword . '_template_file', $file, $item_keyword, $POST_ID, $args, $datas, $product );
 
 if( !is_file( $file ) ){
     $item_default = 'default_item'; //Only for Class when Available and Default for not available
@@ -31,7 +31,7 @@ if( !is_file( $file ) ){
     /**
      * Template Location For Default Template, I mean, When a column keyword will not found a file
      */
-    $file = apply_filters( 'wpt_' . $item_keyword . '_template_file', $file, $item_keyword, $POST_ID, $args, $datas, $product );
+    $file = apply_filters( 'ultratable_' . $item_keyword . '_template_file', $file, $item_keyword, $POST_ID, $args, $datas, $product );
 }
 
 if( is_bool( $validation ) && $validation){
@@ -54,7 +54,7 @@ if( is_bool( $validation ) && $validation){
     /**
      * Class Filter For EAch Item
      */
-    $itm_class_arr = apply_filters( 'wpt_item_arr_' . $item_keyword, $itm_class_arr, $POST_ID, $args, $datas, $product );
+    $itm_class_arr = apply_filters( 'ultratable_item_arr_' . $item_keyword, $itm_class_arr, $POST_ID, $args, $datas, $product );
 
     $item_class = implode(" ", $itm_class_arr);
 ?>
@@ -68,18 +68,18 @@ style="<?php echo esc_attr( $item_style_str ); ?>"
 id="item_<?php echo esc_attr( $item_id ); ?>" >
 <?php
     //Action for Add content After Selected Keyword
-    do_action( 'wpt_' . $item_keyword . '_before', $POST_ID, $args, $datas, $product );
+    do_action( 'ultratable_' . $item_keyword . '_before', $POST_ID, $args, $datas, $product );
 
     if( is_file( $file ) ){
         include $file;
     }else{
         $file_not_founded_msg = esc_html( sprintf( 'Your desired file(%s) is not founded!', $file ), 'wpt' );
-        echo apply_filters( 'wpt_file_not_founded_msg', $file_not_founded_msg, $POST_ID, $args, $datas, $product );
+        echo apply_filters( 'ultratable_file_not_founded_msg', $file_not_founded_msg, $POST_ID, $args, $datas, $product );
     }
 
 
     //Action for Add content After Selected Keyword
-    do_action( 'wpt_' . $item_keyword . '_after', $POST_ID, $args, $datas, $product );
+    do_action( 'ultratable_' . $item_keyword . '_after', $POST_ID, $args, $datas, $product );
 ?>
 </<?php echo $tag; ?>>
 <!-- Item End -->

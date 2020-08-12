@@ -51,6 +51,11 @@ if ( !defined( 'ULTRATABLE_BASE_DIR' ) ) {
     define( "ULTRATABLE_BASE_DIR", str_replace( '\\', '/', dirname( __FILE__ ) ) );
 }
 
+//var_dump(ULTRATABLE_BASE_DIR);
+if ( !defined( 'ULTRATABLE_TABLE_DIR' ) ) {
+    define( "ULTRATABLE_TABLE_DIR", ULTRATABLE_BASE_DIR . '/table' );
+}
+
 include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 ULTRATABLE::getInstance();
 class ULTRATABLE{

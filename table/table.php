@@ -21,9 +21,6 @@ function ultratable_table_generate( $atts ){
         return ob_get_clean();
     }
     
-    $WPT_DIR_LINK = __DIR__;
-
-    
     $args = isset( $datas['args'] ) ? $datas['args'] : array( 'post_type' => array('product'), 'post_status' => 'publish' );
     //Add Filter for Args for Table
     $args = apply_filters( 'ultratable_table_args', $args, $datas, $atts, $POST_ID );
