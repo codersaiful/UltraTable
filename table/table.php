@@ -217,3 +217,11 @@ if( !function_exists( 'ultratable_table_full' ) ){
     }
 }
 add_action( 'ultratable_full_table', 'ultratable_table_full', 10, 5 );
+
+function sssssssaiful(){
+    var_dump($_POST);
+    add_action( 'ultratable_full_table', 'ultratable_table_full', 10, 5 );
+    die('hello');
+}
+add_action( 'wp_ajax_ultratable_ajax_table_load', 'sssssssaiful' );
+add_action( 'wp_ajax_nopriv_ultratable_ajax_table_load', 'sssssssaiful' );
