@@ -47,3 +47,18 @@ if( !function_exists( 'ultratable_pagination' ) ){
 }
 add_action( 'ultratable_footer', 'ultratable_pagination', 10, 5 );
 //add_action( 'ultratable_header', 'ultratable_pagination', 10, 5 );
+
+if( !function_exists( 'ultratable_pagination_sss' ) ){
+    //do_action( 'ultratable_footer', $args, $datas, $atts, $POST_ID );
+    /**
+     * 
+     * @global type $current_screen
+     * @param string $class
+     * @return string
+     */
+    function ultratable_pagination_sss( $args, $datas, $atts, $POST_ID, $product_loop ){
+  
+
+    }
+}
+add_action( 'ultratable_header', 'ultratable_pagination_sss', 10, 5 );
