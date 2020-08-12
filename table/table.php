@@ -30,14 +30,6 @@ function ultratable_table_generate( $atts ){
     $datas = apply_filters( 'ultratable_table_data', $datas, $args, $atts, $POST_ID );
     $datas = apply_filters( 'ultratable_table_data_' . $POST_ID, $datas, $args, $atts );
 
-    //WPT_ARGS_Manager::sanitize($datas);
-    WPT_TABLE::init( $datas );
-    
-    //echo '<pre>';
-    //print_r($datas['device']);
-    //echo '</pre>';
-    $name = isset( $datas['name'] ) ? $datas['name'] : false;
-    $title = isset( $datas['title'] ) ? $datas['title'] : false;
     $class = isset( $datas['class'] ) && is_array( $datas['class'] ) ? $datas['class'] : array( 'ultratable_product_table' );
     $notfound = false;
     
@@ -46,11 +38,10 @@ function ultratable_table_generate( $atts ){
     $wrapper_class = implode(" ", $class);
     $wrapper_header_class = implode(" header_", $class);
     $wrapper_div_class = implode(" div_", $class);
-    $wrapper_table_class = implode(" table_", $class);
+    
     $wrapper_footer_class = implode(" footer_", $class);
     $device_name = WPT_TABLE::getDevice();
-    $device_style_str = isset( $datas['device'][$device_name]['style_str'] ) ? $datas['device'][$device_name]['style_str'] : '';
-    
+
     
     /**
      * Arranging Args
@@ -62,6 +53,7 @@ function ultratable_table_generate( $atts ){
     $args['paged'] =( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : $page_number;
 
     $product_loop = new WP_Query( $args );
+    var_dump($args);
     ?>
 <div class="ultratable_main_wrapper device-<?php echo esc_attr( $device_name ); ?> <?php echo esc_attr( $wrapper_class ); ?>">
     <div class="ultratable_header <?php echo esc_attr( $wrapper_header_class ); ?>">
@@ -76,6 +68,79 @@ function ultratable_table_generate( $atts ){
         class="ultratable_table_div <?php echo esc_attr( $wrapper_div_class ); ?>"
         
          >
+        <?php 
+        //Before Table
+        do_action( 'ultratable_before_table', $args, $datas, $atts, $POST_ID, $product_loop );
+        
+        /**
+         * Adding Table Content by using following Action Hook
+         */
+        do_action( 'ultratable_full_table', $product_loop, $args, $datas, $atts, $POST_ID );
+        
+        /**
+         * Adding Table Content by using following Action Hook
+         */
+        do_action( 'ultratable_full_table' . $POST_ID, $product_loop, $args, $datas, $atts ); 
+        
+        //After Table
+        do_action( 'ultratable_after_table', $args, $datas, $atts, $POST_ID, $product_loop );
+        ?>
+        
+        
+        <?php
+         ?>
+    </div>
+    <div class="ultratable_footer <?php echo esc_attr( $wrapper_footer_class ); ?>">
+        <?php
+        $notfound = apply_filters( 'ultratable_notfound_msg', $notfound );
+        if( $notfound ){
+            include_once 'includes/notfound.php';
+        }
+        ?>
+        
+        <?php
+        //Universal Action for 
+        do_action( 'ultratable_footer', $args, $datas, $atts, $POST_ID, $product_loop );
+        //Indivisual Action for Specific Table
+        do_action( 'ultratable_footer_' . $POST_ID, $args, $datas, $atts, $product_loop );
+        ?>
+    </div>
+</div>
+    <?php
+    if( isset( $_GET['var_dump'] ) ){
+       echo '<pre>';
+        print_r($datas);
+        echo '</pre>'; 
+    }
+    
+    
+    return ob_get_clean();;
+}
+
+add_action( 'wp_enqueue_scripts', array( 'WC_Frontend_Scripts', 'load_scripts' ) );
+add_action( 'wp_print_scripts', array( 'WC_Frontend_Scripts', 'localize_printed_scripts' ), 5 );
+add_action( 'wp_print_footer_scripts', array( 'WC_Frontend_Scripts', 'localize_printed_scripts' ), 5 );
+
+if( !function_exists( 'ultratable_table_full' ) ){
+    //do_action( 'ultratable_footer', $args, $datas, $atts, $POST_ID );
+    /**
+     * 
+     * @global type $current_screen
+     * @param string $class
+     * @return string
+     */
+    function ultratable_table_full( $product_loop, $args, $datas, $atts, $POST_ID ){
+        //WPT_ARGS_Manager::sanitize($datas);
+        WPT_TABLE::init( $datas );
+
+        $class = isset( $datas['class'] ) && is_array( $datas['class'] ) ? $datas['class'] : array( 'ultratable_product_table' );
+        $wrapper_table_class = implode(" table_", $class);
+        $name = isset( $datas['name'] ) ? $datas['name'] : false;
+        $title = isset( $datas['title'] ) ? $datas['title'] : false;
+        $device_name = WPT_TABLE::getDevice();
+        $device_style_str = isset( $datas['device'][$device_name]['style_str'] ) ? $datas['device'][$device_name]['style_str'] : '';
+        
+        ?>
         <table 
             class="ultratable_table <?php echo esc_attr( $wrapper_table_class ); ?>"
             style="<?php echo esc_attr( $device_style_str ); ?>"   
@@ -120,7 +185,7 @@ function ultratable_table_generate( $atts ){
                 
                 endwhile;
                 else:
-                $notfound = __( 'Not founded', 'wpt' );    
+                //$notfound = __( 'Not founded', 'wpt' );    
                 endif;
                 wp_reset_query(); //Added reset query before end Table just at Version 1.0.0
                 wp_reset_postdata();
@@ -128,34 +193,8 @@ function ultratable_table_generate( $atts ){
             </tbody>
             
         </table>
-    </div>
-    <div class="ultratable_footer <?php echo esc_attr( $wrapper_footer_class ); ?>">
-        <?php
-        $notfound = apply_filters( 'ultratable_notfound_msg', $notfound );
-        if( $notfound ){
-            include_once 'includes/notfound.php';
-        }
-        ?>
-        
-        <?php
-        //Universal Action for 
-        do_action( 'ultratable_footer', $args, $datas, $atts, $POST_ID, $product_loop );
-        //Indivisual Action for Specific Table
-        do_action( 'ultratable_footer_' . $POST_ID, $args, $datas, $atts, $product_loop );
-        ?>
-    </div>
-</div>
-    <?php
-    if( isset( $_GET['var_dump'] ) ){
-       echo '<pre>';
-        print_r($datas);
-        echo '</pre>'; 
-    }
-    
-    
-    return ob_get_clean();;
-}
+        <?php 
 
-add_action( 'wp_enqueue_scripts', array( 'WC_Frontend_Scripts', 'load_scripts' ) );
-add_action( 'wp_print_scripts', array( 'WC_Frontend_Scripts', 'localize_printed_scripts' ), 5 );
-add_action( 'wp_print_footer_scripts', array( 'WC_Frontend_Scripts', 'localize_printed_scripts' ), 5 );
+    }
+}
+add_action( 'ultratable_full_table', 'ultratable_table_full', 10, 5 );
