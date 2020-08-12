@@ -41,7 +41,8 @@ function ultratable_table_generate( $atts ){
     
     $wrapper_footer_class = implode(" footer_", $class);
     $device_name = WPT_TABLE::getDevice();
-
+    $device_style_str = isset( $datas['device'][$device_name]['style_str'] ) ? $datas['device'][$device_name]['style_str'] : '';
+    //$wrapper_style_str = isset( $datas['style_str'] ) ? $datas['style_str'] : '';
     
     /**
      * Arranging Args
@@ -62,6 +63,7 @@ function ultratable_table_generate( $atts ){
      data-atts='<?php echo esc_attr( wp_json_encode( $atts ) ); ?>'
      data-args='<?php echo esc_attr( wp_json_encode( $args ) ); ?>'
      data-args-backup='<?php echo esc_attr( wp_json_encode( $args ) ); ?>'
+     style="<?php echo esc_attr( $device_style_str ); ?>"
      data-data='<?php echo esc_attr( wp_json_encode( $datas ) ); ?>'
      <?php 
      /**
@@ -149,7 +151,7 @@ if( !function_exists( 'ultratable_table_full' ) ){
         $name = isset( $datas['name'] ) ? $datas['name'] : false;
         $title = isset( $datas['title'] ) ? $datas['title'] : false;
         $device_name = WPT_TABLE::getDevice();
-        $device_style_str = isset( $datas['device'][$device_name]['style_str'] ) ? $datas['device'][$device_name]['style_str'] : '';
+        $device_style_str = '';//isset( $datas['device'][$device_name]['style_str'] ) ? $datas['device'][$device_name]['style_str'] : '';
         
         ?>
         <table 
@@ -157,8 +159,9 @@ if( !function_exists( 'ultratable_table_full' ) ){
             style="<?php echo esc_attr( $device_style_str ); ?>"   
                >
             <?php
+            $thead_show = apply_filters( 'ultratable_table_head_show', true, $args, $datas, $atts, $POST_ID, $product_loop  );
             //Include and Generate Table Head Tr here.
-            if( WPT_TABLE::is_table_head() && WPT_TABLE::get_head() ){
+            if( $thead_show ){
             include ULTRATABLE_TABLE_DIR . '/includes/table-head.php';
             } ?>
             

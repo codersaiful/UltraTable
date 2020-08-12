@@ -28,16 +28,15 @@ table:not( .has-background ) tbody td {
     list-style-type: none;
     padding: 0;
     margin: 0;
+    display: flex;
+    justify-content: space-between;
 }
 .ultratable-pagination-wrapper ul.page-numbers li {
-    display: inline-block;
     border-radius: 2px;
     text-align: center;
     vertical-align: top;
-    height: 30px;
     position: relative;
     cursor: pointer;
-    display: inline-block;
     overflow: hidden;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -48,19 +47,24 @@ table:not( .has-background ) tbody td {
     z-index: 1;
     -webkit-transition: .3s ease-out;
     transition: .3s ease-out;
+    flex-grow: 5;
 }
 
 .ultratable-pagination-wrapper ul.page-numbers li .page-numbers,
 .ultratable-pagination-wrapper ul.page-numbers li .page-numbers.current {
     color: #444;
-    display: inline-block;
     font-size: 1.2rem;
-    padding: 0 10px;
     line-height: 30px;
     text-decoration: none;
+    display: block;
+    background: #dddddd30;
+    margin: 1px;
+    border: 1px solid #dddddd66;
+    padding: 4px 0;
 }
 
 .ultratable-pagination-wrapper ul.page-numbers li .page-numbers.current {
     background: #ee6e73;
     color: #fff;
+    border: 1px solid #9a3438;
 }
