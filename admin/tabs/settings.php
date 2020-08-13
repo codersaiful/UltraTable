@@ -1,10 +1,19 @@
 <?php
+$title           = isset( $data['title'] ) ? $data['title'] : '';
 $head           = isset( $data['head'] ) ? $data['head'] : 'on';
 $checkbox       = $head == 'on' ? 'checked' : '';
 ?>
 
 <div class="ultraaddons-panel">
     <table class="ultraaddons-table">
+        <tr>
+            <th>
+                <label>Table Title</label>
+            </th>
+            <td>
+                <input type="text" name="data[title]" value="<?php echo esc_attr( $title ); ?>" class="ua_input">
+            </td>
+        </tr>
         <tr>
             <th>
                 <label>Table Head</label>

@@ -146,8 +146,8 @@ if( !function_exists( 'ultratable_data_manipulation_on_save' ) ){
         }
         //Style Manipulation Here End
         
-        //Style Manipulation for Wrapper Tag
-        $data['style_str'] = isset( $data['style'] ) && !empty( $data['style'] ) ? ultratable_convert_style_from_arr( $data['style'] ) : '';
+        //Style Manipulation for Wrapper Tag //It's Finally deactivated
+        //$data['style_str'] = isset( $data['style'] ) && !empty( $data['style'] ) ? ultratable_convert_style_from_arr( $data['style'] ) : '';
         
         //exit;
         return $data;

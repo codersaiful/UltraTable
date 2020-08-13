@@ -63,6 +63,7 @@ if( !function_exists( 'ultratable_metabox_save_meta' ) ){
             return;
         }
         $data = $_POST['data'];
+        $data['name'] = get_the_title( $post_id );
         $data['POST_ID'] = $post_id;
         $data['id'] = $post_id;
         /**
