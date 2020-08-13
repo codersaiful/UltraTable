@@ -39,7 +39,6 @@ if( !function_exists( 'ultratable_table_full' ) ){
 
                 <tbody>
                     <?php
-                    $product_loop = new WP_Query($args);
 
                     //Getting Columns Info Based on Defice, Currently getting Desktop Column Only
                     $table_row = WPT_TABLE::getCollumns();
