@@ -52,10 +52,26 @@ function ultratable_table_generate( $atts ){
      */
     $page_number = ( get_query_var( 'page' ) ) ? get_query_var( 'page' ) : apply_filters( 'ultratable_default_page_number', 1, $POST_ID );
     $args['paged'] =( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : $page_number;
-
-    $product_loop = new WP_Query( $args );
-    //var_dump($product_loop);
+    global $wpdb;
+    var_dump( get_queried_object(), wc_query_string_form_fields());
+    $sql = $GLOBALS['wp_query']->request;
+    var_dump($wpdb->get_results( $sql, OBJECT ));    
+    //var_dump(get_page_statuses(),$GLOBALS['wp_query']->query_vars );
+    $page_query = $GLOBALS['wp_query']->query_vars;
     
+    if( isset( $page_query['wc_query'] ) && $page_query['wc_query'] == 'product_query' ){
+        $gen_args = array_merge( $args,$GLOBALS['wp_query']->query_vars );
+        $gen_args['post_type'] = isset( $args['post_type'] ) && !empty( $args['post_type'] ) ? $args['post_type'] : 'product';
+        $args = $gen_args;
+    }
+    
+    $product_loop = new WP_Query( $args );// $GLOBALS['wp_query'];//
+    //var_dump($product_loop,$GLOBALS['wp_query']);
+    //exit;
+    /**
+    var_dump($GLOBALS['wp_query']->posts);exit;
+    $product_loop = $GLOBALS['wp_query']->posts;exit;
+     */
     
     ?>
 <div class="ultratable_main_wrapper device-<?php echo esc_attr( $device_name ); ?> <?php echo esc_attr( $wrapper_class ); ?>"  
@@ -113,7 +129,7 @@ function ultratable_table_generate( $atts ){
     wp_reset_postdata();
     
     if( isset( $_GET['var_dump'] ) ){
-       echo '<pre>';
+        echo '<pre>';
         print_r($datas);
         echo '</pre>'; 
     }
