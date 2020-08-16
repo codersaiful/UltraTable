@@ -53,20 +53,31 @@ function ultratable_table_generate( $atts ){
     $page_number = ( get_query_var( 'page' ) ) ? get_query_var( 'page' ) : apply_filters( 'ultratable_default_page_number', 1, $POST_ID );
     $args['paged'] =( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : $page_number;
     global $wpdb;
-    var_dump( get_queried_object(), wc_query_string_form_fields());
+    //var_dump( get_queried_object(), wc_query_string_form_fields());
     $sql = $GLOBALS['wp_query']->request;
-    var_dump($wpdb->get_results( $sql, OBJECT ));    
+    //var_dump($wpdb->get_results( $sql, ARRAY_A ));    
     //var_dump(get_page_statuses(),$GLOBALS['wp_query']->query_vars );
-    $page_query = $GLOBALS['wp_query']->query_vars;
+    $page_query = isset( $GLOBALS['wp_query'] ) ? $GLOBALS['wp_query']->query_vars : null;
     
+    
+    //var_dump($args);
     if( isset( $page_query['wc_query'] ) && $page_query['wc_query'] == 'product_query' ){
         $gen_args = array_merge( $args,$GLOBALS['wp_query']->query_vars );
         $gen_args['post_type'] = isset( $args['post_type'] ) && !empty( $args['post_type'] ) ? $args['post_type'] : 'product';
         $args = $gen_args;
+        
+        $sql = $GLOBALS['wp_query']->request;
+        $results = $wpdb->get_results( $sql, ARRAY_A );
+        $args_product_in = array();
+        foreach( $results as $result ){
+            $args_product_in[] = $result['ID'];
+        }
+        //var_dump($args_product_in);
+        $args['post__in'] = $args_product_in;
     }
     
     $product_loop = new WP_Query( $args );// $GLOBALS['wp_query'];//
-    //var_dump($product_loop,$GLOBALS['wp_query']);
+    //var_dump($args);
     //exit;
     /**
     var_dump($GLOBALS['wp_query']->posts);exit;
