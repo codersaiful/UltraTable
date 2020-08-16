@@ -29,6 +29,77 @@ if( !function_exists( 'ultratable_args_manager' ) ){
             foreach( $results as $result ){
                 $args_product_in[] = $result['ID'];
             }
+            /*
+            //var_dump($args_product_in);
+            //unset($args['tax_query']);
+            unset($args['orderby']);
+            unset($args['page_id']);
+            unset($args['wc_query']);
+            unset($args['post_status']);
+            unset($args['cache_results']);
+            unset($args['update_post_term_cache']);
+            unset($args['lazy_load_term_meta']);
+            unset($args['nopaging']);
+            unset($args['no_found_rows']);
+            unset($args['comments_per_page']);
+            unset($args['update_post_meta_cache']);
+            unset($args['suppress_filters']);
+            unset($args['ignore_sticky_posts']);
+            unset($args['meta_query']);
+            unset($args['order']);
+            unset($args['meta_query']);
+            unset($args['attachment_id']);
+            unset($args['category__in']);
+            unset($args['category__not_in']);
+            unset($args['category__and']);
+            unset($args['post__not_in']);
+            unset($args['post_name__in']);
+            unset($args['tag__in']);
+            unset($args['tag__not_in']);
+            unset($args['tag__and']);
+            unset($args['tag_slug__in']);
+            unset($args['tag_slug__and']);
+            unset($args['post_parent__in']);
+            unset($args['post_parent__not_in']);
+            unset($args['author__in']);
+            unset($args['author__not_in']);
+            unset($args['s']);
+            unset($args['p']);
+            unset($args['m']);
+            unset($args['post_parent']);
+            unset($args['subpost']);
+            unset($args['subpost_id']);
+            unset($args['attachment']);
+            unset($args['pagename']);
+            unset($args['second']);
+            unset($args['minute']);
+            unset($args['hour']);
+            unset($args['day']);
+            unset($args['monthnum']);
+            unset($args['year']);
+            unset($args['w']);
+            unset($args['category_name']);
+            unset($args['error']);
+            unset($args['tag']);
+            unset($args['cat']);
+            unset($args['tag_id']);
+            unset($args['author']);
+            unset($args['author_name']);
+            unset($args['feed']);
+            unset($args['tb']);
+            unset($args['meta_key']);
+            unset($args['meta_value']);
+            unset($args['preview']);
+            unset($args['sentence']);
+            unset($args['menu_order']);
+            unset($args['embed']);
+            unset($args['name']);
+            unset($args['name']);
+            
+            //$args['tax_query'] = array( 'relation' => 'AND' );
+            $args['post_status'] = 'publish';
+            //$args['fields'] = 'ids';
+            */
             $args['post__in'] = $args_product_in;
             $args['paged'] = 0;
         }
@@ -48,10 +119,7 @@ if( !function_exists( 'ultratable_pagination' ) ){
      * @return string
      */
     function ultratable_pagination( $args, $datas, $atts, $POST_ID, $product_loop ){
-        $args['paged'] = isset( $args['paged'] ) ? $args['paged'] : 1;
         $args = apply_filters( 'ultratable_table_args', $args, $datas, $atts, $POST_ID );
-        var_dump($args);
-        
         echo wp_kses_post( '<div class="ultratable-pagination-wrapper" >' );
             $big = 99999999;
             $paginate = paginate_links( array(
