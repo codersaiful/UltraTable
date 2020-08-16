@@ -50,7 +50,7 @@ if( !function_exists( 'ultratable_pagination' ) ){
     function ultratable_pagination( $args, $datas, $atts, $POST_ID, $product_loop ){
         $args['paged'] = isset( $args['paged'] ) ? $args['paged'] : 1;
         $args = apply_filters( 'ultratable_table_args', $args, $datas, $atts, $POST_ID );
-        var_dump($args);
+        $args = apply_filters( 'ultratable_table_args_paginate', $args, $datas, $atts, $POST_ID );
         
         echo wp_kses_post( '<div class="ultratable-pagination-wrapper" >' );
             $big = 99999999;
@@ -117,6 +117,7 @@ if( !function_exists( 'ultratable_table_head_show_hide' ) ){
      */
     function ultratable_table_head_show_hide( $bool,$args, $datas, $atts, $POST_ID, $product_loop ){
         $args = apply_filters( 'ultratable_table_args', $args, $datas, $atts, $POST_ID );
+        $args = apply_filters( 'ultratable_table_args_header_show_hide', $args, $datas, $atts, $POST_ID );
         $count_on_page = $product_loop->post_count;
         $show_on_notfound = true;
         if( $count_on_page < 1 ){
@@ -135,6 +136,7 @@ if( !function_exists( 'ultratable_post_count_msg' ) ){
 
     function ultratable_post_count_msg( $args, $datas, $atts, $POST_ID, $product_loop ){
         $args = apply_filters( 'ultratable_table_args', $args, $datas, $atts, $POST_ID );
+        $args = apply_filters( 'ultratable_table_args_count_msg', $args, $datas, $atts, $POST_ID );
         $validation = apply_filters( 'ultratable_post_count_validation', true, $args, $datas, $atts, $POST_ID );
         if( !$validation ){
             return;
@@ -161,6 +163,7 @@ if( !function_exists( 'ultratable_notfound_msg' ) ){
 
     function ultratable_notfound_msg( $args, $datas, $atts, $POST_ID, $product_loop ){
         $args = apply_filters( 'ultratable_table_args', $args, $datas, $atts, $POST_ID );
+        $args = apply_filters( 'ultratable_table_args_notfound', $args, $datas, $atts, $POST_ID );
         $validation = apply_filters( 'ultratable_notfound_validation', true, $args, $datas, $atts, $POST_ID );
         if( !$validation ){
             return;
