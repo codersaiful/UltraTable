@@ -9,6 +9,18 @@ function ultratable_enqueue_scripts(){
     wp_enqueue_style( 'ultratable-style', ULTRATABLE_BASE_URL . 'assets/css/style.css', array(), '1.0.0', 'all' );
     wp_enqueue_script( 'jquery' );
     wp_enqueue_script( 'ultratable-script', ULTRATABLE_BASE_URL . 'assets/js/scripts.js', array( 'jquery' ), '1.0.0', true );
+    
+    $ajax_url = admin_url( 'admin-ajax.php' );
+    $ULTRATABLE_DATA = array( 
+        'ajaxurl'   => $ajax_url,
+        'ajax_url'  => $ajax_url,
+        'site_url'  => site_url(),
+        'checkout_url' => wc_get_checkout_url(),
+        'cart_url' => wc_get_cart_url(),
+        'priceFormat' => wpt_price_formatter(),
+        );
+    $ULTRATABLE_DATA = apply_filters( 'wpto_localize_data', $ULTRATABLE_DATA );
+    wp_localize_script( 'ultratable-script', 'ULTRATABLE_DATA', $ULTRATABLE_DATA );
 }
 add_action( 'wp_enqueue_scripts', 'ultratable_enqueue_scripts' );
 
