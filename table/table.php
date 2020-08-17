@@ -9,7 +9,7 @@ add_shortcode('UltraTable', 'ultratable_table_generate');
 
 function ultratable_table_generate( $atts ){
     global $wp_taxonomies, $wp_queries;
-    var_dump($wp_taxonomies, $wp_queries);
+    //var_dump($wp_taxonomies, $wp_queries);
     ob_start();
     //$ultratable_short = new WPT_Shortcode_Products();
     
