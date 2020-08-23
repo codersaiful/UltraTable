@@ -14,16 +14,23 @@ $tabs       = array(
     //'design'    => esc_html( 'Design', 'ultratable' ),
 );
 $supported_items = array(
+    'product-title'        =>  'Product Ttitle',
+    'short-description'        =>  'Short Description',
+    'description'        =>  'Description',
+    //'content'        =>  'Content',
+    'product-image'        =>  'Product Image',
+    'product-thumbnails'        =>  'product thumbnails',
     'action'        =>  'Action',
-    'content'       =>'Content/Description',
-    'price'         =>'price',
-    'quantity'      =>'Quantity Box',
+    'sku'        =>  'SKU',
+    //'content'       =>'Content/Description',
+    //'price'         =>'price',
+    //'quantity'      =>'Quantity Box',
     'add-to-cart'      =>'Add to cart Button',
-    'product-thumbnails'=> 'Thumbs',
-    'short-description'=> 'Short Description',
-    'single_products'=> 'Single Products',
-    'single_products_after_summary'=> 'Summerry',
-    'var_dump'=> 'var_dump (For Developer Only)',    
+    //'product-thumbnails'=> 'Thumbs',
+    //'short-description'=> 'Short Description',
+    //'single_products'=> 'Single Products',
+    //'single_products_after_summary'=> 'Summerry',
+    //'var_dump'=> 'var_dump (For Developer Only)',    
 );
 $supported_items = apply_filters( 'ultratable_supported_items',$supported_items, $data, $post_id, $post, $tabs );
 
@@ -54,7 +61,7 @@ do_action( 'ultratable_post_form_top',$data, $post, $tabs );
 //Now start for Tab Content
 $active_tab_content = 'tab-content-active';
 foreach ( $tabs as $tab => $title ) {
-    echo '<div class="wpt_tab_content tab-content ' . esc_attr( $active_tab_content ) . '" id="' . esc_attr( $tab ) . '">';
+    echo '<div class="ultratable_tab_content tab-content ' . esc_attr( $active_tab_content ) . '" id="' . esc_attr( $tab ) . '">';
     echo '<div class="fieldwrap">';
 
     /**
