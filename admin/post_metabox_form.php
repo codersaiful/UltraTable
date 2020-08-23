@@ -39,6 +39,7 @@ $supported_css_property = array(
     'font-size'=>'Font Size',
     'font-weight' => 'Font Weight',
     'font-style'=> 'Font Style',
+    'text-align'=> 'Text Align',
     'text-shadow'=> 'Text Shadow',
     'background-color'=>'Background Color',
     'border'=>'Border',
