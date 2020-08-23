@@ -17,7 +17,6 @@ function ultratable_enqueue_scripts(){
         'site_url'  => site_url(),
         'checkout_url' => wc_get_checkout_url(),
         'cart_url' => wc_get_cart_url(),
-        'priceFormat' => wpt_price_formatter(),
         );
     $ULTRATABLE_DATA = apply_filters( 'wpto_localize_data', $ULTRATABLE_DATA );
     wp_localize_script( 'ultratable-script', 'ULTRATABLE_DATA', $ULTRATABLE_DATA );
