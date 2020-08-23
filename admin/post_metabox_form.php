@@ -21,6 +21,7 @@ $supported_items = array(
     'product-image'        =>  'Product Image',
     'product-thumbnails'        =>  'product thumbnails',
     'action'        =>  'Action',
+    'sku'        =>  'SKU',
     //'content'       =>'Content/Description',
     //'price'         =>'price',
     //'quantity'      =>'Quantity Box',
