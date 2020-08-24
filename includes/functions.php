@@ -77,6 +77,8 @@ if( !function_exists( 'ultratable_args_manager' ) ){
      */
     function ultratable_args_manager( $args, $datas, $atts, $POST_ID ){
         global $wpdb;
+        global $wp_object_cache;
+        //var_dump($wp_object_cache,WC()->query->get_main_query());
         //var_dump($args);
         $page_query = isset( $GLOBALS['wp_query'] ) ? $GLOBALS['wp_query']->query_vars : null;
         $args_product_in = false;
