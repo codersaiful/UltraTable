@@ -1,6 +1,68 @@
 <?php
 
 if( !function_exists( 'ultratable_args_manager' ) ){
+    /**
+     * Only for Pro
+    * Register widget area.
+    *
+    * @link https://developer.wordpress.org/themes/functionality/sidebars/#registering-a-sidebar
+    */
+   function ultratable_widgets_init() {
+            register_sidebar( 
+                    array(
+                        'name'          => esc_html__( 'UltraTable Header Widget', 'ultratable' ),
+                        'id'            => 'ultratable-header',
+                        'description'   => esc_html__( 'Add widgets here.', 'ultratable' ),
+                        'before_widget' => '<section id="%1$s" class="ultratable-widget widget %2$s">',
+                        'after_widget'  => '</section>',
+                        'before_title'  => '<h2 class="ultratable-widget-title widget-title">',
+                        'after_title'   => '</h2>',
+                    )
+            );
+            
+            register_sidebar( 
+                    array(
+                        'name'          => esc_html__( 'UltraTable Footer Widget', 'ultratable' ),
+                        'id'            => 'ultratable-footer',
+                        'description'   => esc_html__( 'Add widgets here.', 'ultratable' ),
+                        'before_widget' => '<section id="%1$s" class="ultratable-widget widget %2$s">',
+                        'after_widget'  => '</section>',
+                        'before_title'  => '<h2 class="ultratable-widget-title widget-title">',
+                        'after_title'   => '</h2>',
+                    )
+            );
+            
+            
+   }
+}
+add_action( 'widgets_init', 'ultratable_widgets_init' );
+
+if( !function_exists( 'ultratable_header_widget' ) ){
+    
+    /**
+     * Widget for Table Header
+     * Only for PRO
+     */
+    function ultratable_header_widget(){
+       dynamic_sidebar( 'ultratable-header' );
+    }
+}
+add_action( 'ultratable_header', 'ultratable_header_widget', 0 );
+
+if( !function_exists( 'ultratable_footer_widget' ) ){
+    
+    /**
+     * Widget for Table Header
+     * Only for PRO
+     */
+    function ultratable_footer_widget(){
+       dynamic_sidebar( 'ultratable-footer' );
+    }
+}
+add_action( 'ultratable_footer', 'ultratable_footer_widget', 999 );
+
+
+if( !function_exists( 'ultratable_args_manager' ) ){
     
     /**
      * Args manage for FrontEnd.
@@ -52,7 +114,6 @@ if( !function_exists( 'ultratable_pagination' ) ){
         $args = apply_filters( 'ultratable_table_args', $args, $datas, $atts, $POST_ID );
         $args = apply_filters( 'ultratable_table_args_paginate', $args, $datas, $atts, $POST_ID );
         
-        echo wp_kses_post( '<div class="ultratable-pagination-wrapper" >' );
             $big = 99999999;
             $paginate = paginate_links( array(
                 //'base' => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
@@ -65,8 +126,9 @@ if( !function_exists( 'ultratable_pagination' ) ){
                 //'before_page_number' => apply_filters( 'ultratable_pgn_type', '', $args, $datas, $atts, $POST_ID, $product_loop ),
 		//'after_page_number'  => apply_filters( 'ultratable_pgn_type', '', $args, $datas, $atts, $POST_ID, $product_loop ),
             ));
-            echo $paginate;
-        echo wp_kses_post( '</div>' );    
+            
+        echo wp_kses_post( '<div class="ultratable-pagination-wrapper" >' . $paginate . '</div>' );
+        
         /**
         $total   = isset( $args['total'] ) ? intval( $args['total'] ) : 2;//isset( $wp_query->max_num_pages ) ? $wp_query->max_num_pages : 1;
 	$current = get_query_var( 'paged' ) ? intval( get_query_var( 'paged' ) ) : 1;
