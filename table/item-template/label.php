@@ -14,7 +14,8 @@ if( isset( $get_data['date_created'] ) ){
     $total = $timestamp + $diff_day;
     
     if( $current_timestamp < $total ){
-        echo apply_filters( 'ultratable_label_text', "New", $get_data, $args, $POST_ID, $product );
+        $label_text = apply_filters( 'ultratable_label_text', "New", $get_data, $args, $POST_ID, $product );
+        echo wp_kses_post( '<span class="label_text">' . $label_text . '</span>' );
     }
 }
 
