@@ -23,20 +23,25 @@ $supported_items = array(
     'action'        =>  'Action',
     'sku'        =>  'SKU',
     //'content'       =>'Content/Description',
-    //'price'         =>'price',
+    'price'         =>'Price',
     //'quantity'      =>'Quantity Box',
     'add-to-cart'      =>'Add to cart Button',
     //'product-thumbnails'=> 'Thumbs',
     //'short-description'=> 'Short Description',
     //'single_products'=> 'Single Products',
     //'single_products_after_summary'=> 'Summerry',
-    //'var_dump'=> 'var_dump (For Developer Only)',    
+    //'var_dump'=> 'var_dump (For Developer Only)', 
+    'label' => 'Label [New]',
 );
 $supported_items = apply_filters( 'ultratable_supported_items',$supported_items, $data, $post_id, $post, $tabs );
 
 $supported_css_property = array(
     'color'        =>  'Text Color',
     'font-size'=>'Font Size',
+    'font-weight' => 'Font Weight',
+    'font-style'=> 'Font Style',
+    'text-align'=> 'Text Align',
+    'text-shadow'=> 'Text Shadow',
     'background-color'=>'Background Color',
     'border'=>'Border',
     'padding'=>'Padding',

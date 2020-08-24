@@ -104,7 +104,54 @@ if( !function_exists( 'ultratable_pagination_sss' ) ){
 
     }
 }
-add_action( 'ultratable_header', 'ultratable_pagination_sss', 10, 5 );
+
+if( !function_exists( 'ultratable_header_wc_default_widget' ) ){
+    /**
+     * Used:
+     * do_action( 'ultratable_footer', $args, $datas, $atts, $POST_ID, $product_loop);
+     * @global type $current_screen
+     * @param string $class
+     * @return string
+     */
+    function ultratable_header_wc_default_widget( $args, $datas, $atts, $POST_ID, $product_loop ){
+        global $wp_widget_factory;
+        //var_dump($wp_widget_factory->widgets['WC_Widget_Layered_Nav_Filters']);
+        $wc_supported_widgets = array(
+            /*
+            'WC_Widget_Price_Filter' => array(
+                'title' => '',
+            ),
+            
+            'WC_Widget_Cart' => array(
+                'title' => '',
+            ),
+            */
+            //'WC_Widget_Price_Filter'=>'',
+            //'WC_Widget_Cart'=>'',
+            //'WC_Widget_Recently_Viewed'=>'',
+            //'WC_Widget_Product_Tag_Cloud'=>'',
+            'WC_Widget_Layered_Nav_Filters'=>'',
+            
+        );
+        $wc_supported_widgets = apply_filters( 'ultratable_header_wc_widgets_arr', $wc_supported_widgets, $args, $datas, $atts, $POST_ID );
+        
+        if( !is_array( $wc_supported_widgets ) ){
+            return;
+        }
+        foreach( $wc_supported_widgets as $widget_name=>$wc_widget ){
+            $instance = is_array( $wc_widget ) ? $wc_widget : array();
+            the_widget( $widget_name, $instance );
+        }
+        /*
+        $instance = array(
+                'title' => '',
+        );
+
+        the_widget( 'WC_Widget_Cart', $instance );
+        */
+    }
+}
+add_action( 'ultratable_header', 'ultratable_header_wc_default_widget', 9, 5 );
 
 if( !function_exists( 'ultratable_table_head_show_hide' ) ){
     //do_action( 'ultratable_footer', $args, $datas, $atts, $POST_ID );

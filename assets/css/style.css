@@ -69,3 +69,14 @@ table:not( .has-background ) tbody td {
     color: #fff;
     border: 1px solid #9a3438;
 }
+div.item_label {
+    background: #3dcd58;
+    color: white;
+    position: absolute;
+    left: -10px;
+    top: -1px;
+}
+
+.ultratable_table_div td {
+    position: relative;
+}
