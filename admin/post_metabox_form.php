@@ -30,7 +30,8 @@ $supported_items = array(
     //'short-description'=> 'Short Description',
     //'single_products'=> 'Single Products',
     //'single_products_after_summary'=> 'Summerry',
-    //'var_dump'=> 'var_dump (For Developer Only)',    
+    //'var_dump'=> 'var_dump (For Developer Only)', 
+    'label' => 'Label [New]',
 );
 $supported_items = apply_filters( 'ultratable_supported_items',$supported_items, $data, $post_id, $post, $tabs );
 
