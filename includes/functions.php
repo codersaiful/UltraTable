@@ -217,6 +217,36 @@ if( !function_exists( 'ultratable_header_wc_default_widget' ) ){
 }
 add_action( 'ultratable_header', 'ultratable_header_wc_default_widget', 9, 5 );
 
+if( !function_exists( 'ultratable_clear_link_on_active_filter' ) ){
+    /**
+     * Used:
+     * do_action( 'ultratable_footer', $args, $datas, $atts, $POST_ID, $product_loop);
+     * @global type $current_screen
+     * @param string $class
+     * @return string
+     */
+    function ultratable_clear_link_on_active_filter( $args, $datas, $atts, $POST_ID, $product_loop ){
+
+        $link = sprintf(
+            "%s://%s%s",
+            isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https' : 'http',
+            $_SERVER['SERVER_NAME'],
+            $_SERVER['REQUEST_URI']
+        );
+        $link = apply_filters( 'ultratable_active_filter_title_text', $link, $args, $datas );
+        $link = strtok($link, '?');
+        
+        $title_text = apply_filters( 'ultratable_active_filter_title_text', '', $args, $datas );
+        $instance = array(
+                'title' => $title_text,
+        );
+        the_widget( 'WC_Widget_Layered_Nav_Filters', $instance );
+        $clear_text = apply_filters( 'ultratable_active_filter_clear_text', 'Clear Filter', $args, $datas );
+        echo '<a class="ultratable_active_filter_clear" href="' . esc_attr( $link ) . '">' . esc_html( $clear_text ) . '</a>';
+    }
+}
+add_action( 'ultratable_header', 'ultratable_clear_link_on_active_filter', 9, 5 );
+
 if( !function_exists( 'ultratable_table_head_show_hide' ) ){
     //do_action( 'ultratable_footer', $args, $datas, $atts, $POST_ID );
     /**
