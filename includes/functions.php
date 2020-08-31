@@ -1,6 +1,68 @@
 <?php
 
 if( !function_exists( 'ultratable_args_manager' ) ){
+    /**
+     * Only for Pro
+    * Register widget area.
+    *
+    * @link https://developer.wordpress.org/themes/functionality/sidebars/#registering-a-sidebar
+    */
+   function ultratable_widgets_init() {
+            register_sidebar( 
+                    array(
+                        'name'          => esc_html__( 'UltraTable Header Widget', 'ultratable' ),
+                        'id'            => 'ultratable-header',
+                        'description'   => esc_html__( 'Add widgets here.', 'ultratable' ),
+                        'before_widget' => '<section id="%1$s" class="ultratable-widget widget %2$s">',
+                        'after_widget'  => '</section>',
+                        'before_title'  => '<h2 class="ultratable-widget-title widget-title">',
+                        'after_title'   => '</h2>',
+                    )
+            );
+            
+            register_sidebar( 
+                    array(
+                        'name'          => esc_html__( 'UltraTable Footer Widget', 'ultratable' ),
+                        'id'            => 'ultratable-footer',
+                        'description'   => esc_html__( 'Add widgets here.', 'ultratable' ),
+                        'before_widget' => '<section id="%1$s" class="ultratable-widget widget %2$s">',
+                        'after_widget'  => '</section>',
+                        'before_title'  => '<h2 class="ultratable-widget-title widget-title">',
+                        'after_title'   => '</h2>',
+                    )
+            );
+            
+            
+   }
+}
+add_action( 'widgets_init', 'ultratable_widgets_init' );
+
+if( !function_exists( 'ultratable_header_widget' ) ){
+    
+    /**
+     * Widget for Table Header
+     * Only for PRO
+     */
+    function ultratable_header_widget(){
+       dynamic_sidebar( 'ultratable-header' );
+    }
+}
+add_action( 'ultratable_header', 'ultratable_header_widget', 0 );
+
+if( !function_exists( 'ultratable_footer_widget' ) ){
+    
+    /**
+     * Widget for Table Header
+     * Only for PRO
+     */
+    function ultratable_footer_widget(){
+       dynamic_sidebar( 'ultratable-footer' );
+    }
+}
+add_action( 'ultratable_footer', 'ultratable_footer_widget', 999 );
+
+
+if( !function_exists( 'ultratable_args_manager' ) ){
     
     /**
      * Args manage for FrontEnd.
@@ -15,6 +77,8 @@ if( !function_exists( 'ultratable_args_manager' ) ){
      */
     function ultratable_args_manager( $args, $datas, $atts, $POST_ID ){
         global $wpdb;
+        global $wp_object_cache;
+        //var_dump($wp_object_cache,WC()->query->get_main_query());
         //var_dump($args);
         $page_query = isset( $GLOBALS['wp_query'] ) ? $GLOBALS['wp_query']->query_vars : null;
         $args_product_in = false;
@@ -52,7 +116,6 @@ if( !function_exists( 'ultratable_pagination' ) ){
         $args = apply_filters( 'ultratable_table_args', $args, $datas, $atts, $POST_ID );
         $args = apply_filters( 'ultratable_table_args_paginate', $args, $datas, $atts, $POST_ID );
         
-        echo wp_kses_post( '<div class="ultratable-pagination-wrapper" >' );
             $big = 99999999;
             $paginate = paginate_links( array(
                 //'base' => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
@@ -65,8 +128,9 @@ if( !function_exists( 'ultratable_pagination' ) ){
                 //'before_page_number' => apply_filters( 'ultratable_pgn_type', '', $args, $datas, $atts, $POST_ID, $product_loop ),
 		//'after_page_number'  => apply_filters( 'ultratable_pgn_type', '', $args, $datas, $atts, $POST_ID, $product_loop ),
             ));
-            echo $paginate;
-        echo wp_kses_post( '</div>' );    
+            
+        echo wp_kses_post( '<div class="ultratable-pagination-wrapper" >' . $paginate . '</div>' );
+        
         /**
         $total   = isset( $args['total'] ) ? intval( $args['total'] ) : 2;//isset( $wp_query->max_num_pages ) ? $wp_query->max_num_pages : 1;
 	$current = get_query_var( 'paged' ) ? intval( get_query_var( 'paged' ) ) : 1;
@@ -130,7 +194,7 @@ if( !function_exists( 'ultratable_header_wc_default_widget' ) ){
             //'WC_Widget_Cart'=>'',
             //'WC_Widget_Recently_Viewed'=>'',
             //'WC_Widget_Product_Tag_Cloud'=>'',
-            'WC_Widget_Layered_Nav_Filters'=>'',
+            //'WC_Widget_Layered_Nav_Filters'=>'',
             
         );
         $wc_supported_widgets = apply_filters( 'ultratable_header_wc_widgets_arr', $wc_supported_widgets, $args, $datas, $atts, $POST_ID );
@@ -152,6 +216,36 @@ if( !function_exists( 'ultratable_header_wc_default_widget' ) ){
     }
 }
 add_action( 'ultratable_header', 'ultratable_header_wc_default_widget', 9, 5 );
+
+if( !function_exists( 'ultratable_clear_link_on_active_filter' ) ){
+    /**
+     * Used:
+     * do_action( 'ultratable_footer', $args, $datas, $atts, $POST_ID, $product_loop);
+     * @global type $current_screen
+     * @param string $class
+     * @return string
+     */
+    function ultratable_clear_link_on_active_filter( $args, $datas, $atts, $POST_ID, $product_loop ){
+
+        $link = sprintf(
+            "%s://%s%s",
+            isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https' : 'http',
+            $_SERVER['SERVER_NAME'],
+            $_SERVER['REQUEST_URI']
+        );
+        $link = apply_filters( 'ultratable_active_filter_title_text', $link, $args, $datas );
+        $link = strtok($link, '?');
+        
+        $title_text = apply_filters( 'ultratable_active_filter_title_text', '', $args, $datas );
+        $instance = array(
+                'title' => $title_text,
+        );
+        the_widget( 'WC_Widget_Layered_Nav_Filters', $instance );
+        $clear_text = apply_filters( 'ultratable_active_filter_clear_text', 'Clear Filter', $args, $datas );
+        echo '<a class="ultratable_active_filter_clear" href="' . esc_attr( $link ) . '">' . esc_html( $clear_text ) . '</a>';
+    }
+}
+add_action( 'ultratable_header', 'ultratable_clear_link_on_active_filter', 9, 5 );
 
 if( !function_exists( 'ultratable_table_head_show_hide' ) ){
     //do_action( 'ultratable_footer', $args, $datas, $atts, $POST_ID );
@@ -230,3 +324,23 @@ if( !function_exists( 'ultratable_notfound_msg' ) ){
 }
 
 add_action( 'ultratable_product_notfound', 'ultratable_notfound_msg', 10, 5 );
+
+$option_key = apply_filters( 'ultratable_option_key', 'ultratable_configure_options', array() );
+$config = get_option( $option_key ); //advance_search
+
+if( !function_exists( 'ultratable_archives_page_template' ) ){
+   
+    function ultratable_archives_page_template( $template_file ) {
+
+       if( is_shop() || is_product_taxonomy() ){
+                   
+           $my_archive = ULTRATABLE_BASE_DIR . '/includes/templates/product-archives.php';
+           $my_archive = apply_filters( 'ultratable_archvie_page_template_loc', $my_archive, $template_file );
+           return file_exists( $my_archive ) ? $my_archive : $template_file;
+       }
+       return $template_file;
+    }
+}
+if( isset( $config['table_on_archive'] ) && $config['table_on_archive'] == 'on' ){
+    add_filter( 'template_include', 'ultratable_archives_page_template', 9999 );
+}

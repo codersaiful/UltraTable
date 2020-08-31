@@ -74,11 +74,11 @@ if( !function_exists( 'ultratable_css_property_adding' ) ){
                     $value = isset( $style[ $style_key ] ) ? $style[ $style_key ] : false;
                     ?>
 
-                    <tr class="each-style each-style-<?php echo esc_attr( $itemKey ); ?>">
+                    <tr class="each-style each-style-<?php echo esc_attr( $itemKey ); ?> each-style-<?php echo esc_attr( $style_key ); ?>">
                         <th><label><?php echo esc_html($label); ?></label></th>
                         <td>
                             <input 
-                                class="ua_input"
+                                class="ua_input ultratable-<?php echo esc_attr( $style_key ); ?>"
                                 name="<?php echo esc_attr($item_name_prefix); ?>[style][<?php echo esc_attr($style_key); ?>]" 
                                 value="<?php echo esc_attr( $value ); ?>" 
                                 placeholder="<?php echo esc_attr($label); ?>">   
@@ -173,3 +173,34 @@ function wpse_80112() {
         endif;
 
 }
+
+if( !function_exists( 'ultratable_submit_form' ) ){
+    /**
+     * Form Submit based on Action Hook
+     * 
+     * @param type $classes
+     * @return Void
+     */
+    function ultratable_form_submit( $datas ){
+        $option_key = apply_filters( 'ultratable_option_key', 'ultratable_configure_options', $datas );
+        if( NULL !== filter_input( INPUT_POST, 'configure_submit' ) && !empty( $datas ) ){
+            /**
+             * @Hook Filter: ultratable_data_on_save
+             * Populate data where data will save and pass data condition
+             * 
+             * @return Array When submit form, user able to modify by this filter
+             */
+            $datas = apply_filters( 'ultratable_data_on_save', $datas );
+            update_option( $option_key, $datas );
+        }
+        if( NULL !== filter_input( INPUT_POST, 'reset_button' ) ){
+            /*
+            $default_data = WQPMB_Button::defaultDatas();
+            
+            $r_data = apply_filters( 'ultratable_data_on_reset', $default_data, $datas );
+            update_option( $option_key , $r_data);
+            */
+        }
+    }
+}
+add_filter( 'ultratable_save_data', 'ultratable_form_submit' );

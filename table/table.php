@@ -8,7 +8,7 @@ include ULTRATABLE_TABLE_DIR . '/classes/ultratable_arg_manager.php';
 add_shortcode('UltraTable', 'ultratable_table_generate');
 
 function ultratable_table_generate( $atts ){
-    global $wp_taxonomies, $wp_queries;
+    global $wp_taxonomies, $wp_queries, $wp_query;
     //var_dump($wp_taxonomies, $wp_queries);
     ob_start();
     //$ultratable_short = new WPT_Shortcode_Products();
