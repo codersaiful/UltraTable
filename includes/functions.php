@@ -194,7 +194,7 @@ if( !function_exists( 'ultratable_header_wc_default_widget' ) ){
             //'WC_Widget_Cart'=>'',
             //'WC_Widget_Recently_Viewed'=>'',
             //'WC_Widget_Product_Tag_Cloud'=>'',
-            'WC_Widget_Layered_Nav_Filters'=>'',
+            //'WC_Widget_Layered_Nav_Filters'=>'',
             
         );
         $wc_supported_widgets = apply_filters( 'ultratable_header_wc_widgets_arr', $wc_supported_widgets, $args, $datas, $atts, $POST_ID );

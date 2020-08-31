@@ -35,7 +35,7 @@ if( !function_exists( 'ultratable_settings_page_form' ) ){
                     </td>
                 </tr>
                 <tr>
-                    <th><label>Enable Quantity Button</label></th>
+                    <th><label>Table on/Off</label></th>
                     <td>
                         <?php
                         
