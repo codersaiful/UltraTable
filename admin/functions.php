@@ -74,11 +74,11 @@ if( !function_exists( 'ultratable_css_property_adding' ) ){
                     $value = isset( $style[ $style_key ] ) ? $style[ $style_key ] : false;
                     ?>
 
-                    <tr class="each-style each-style-<?php echo esc_attr( $itemKey ); ?>">
+                    <tr class="each-style each-style-<?php echo esc_attr( $itemKey ); ?> each-style-<?php echo esc_attr( $style_key ); ?>">
                         <th><label><?php echo esc_html($label); ?></label></th>
                         <td>
                             <input 
-                                class="ua_input"
+                                class="ua_input ultratable-<?php echo esc_attr( $style_key ); ?>"
                                 name="<?php echo esc_attr($item_name_prefix); ?>[style][<?php echo esc_attr($style_key); ?>]" 
                                 value="<?php echo esc_attr( $value ); ?>" 
                                 placeholder="<?php echo esc_attr($label); ?>">   

@@ -30,6 +30,7 @@ function ultratable_admin_enqueue_scripts( $hook_suffix ) {
     
     wp_enqueue_style( 'ultratable-admin', ULTRATABLE_BASE_URL . 'assets/css/admin-style.css', array(), '1.0.0', 'all' );
     wp_enqueue_style( 'wp-color-picker' );
+    wp_enqueue_script( 'wp-color-picker');
     wp_enqueue_script( 'ultratable-admin', ULTRATABLE_BASE_URL . 'assets/js/admin-script.js', array( 'jquery' ), '1.0.0', true );
 }
 add_action( 'admin_enqueue_scripts', 'ultratable_admin_enqueue_scripts' );
