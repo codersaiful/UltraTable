@@ -173,3 +173,34 @@ function wpse_80112() {
         endif;
 
 }
+
+if( !function_exists( 'ultratable_submit_form' ) ){
+    /**
+     * Form Submit based on Action Hook
+     * 
+     * @param type $classes
+     * @return Void
+     */
+    function ultratable_form_submit( $datas ){
+        $option_key = apply_filters( 'ultratable_option_key', 'ultratable_configure_options', $datas );
+        if( NULL !== filter_input( INPUT_POST, 'configure_submit' ) && !empty( $datas ) ){
+            /**
+             * @Hook Filter: ultratable_data_on_save
+             * Populate data where data will save and pass data condition
+             * 
+             * @return Array When submit form, user able to modify by this filter
+             */
+            $datas = apply_filters( 'ultratable_data_on_save', $datas );
+            update_option( $option_key, $datas );
+        }
+        if( NULL !== filter_input( INPUT_POST, 'reset_button' ) ){
+            /*
+            $default_data = WQPMB_Button::defaultDatas();
+            
+            $r_data = apply_filters( 'ultratable_data_on_reset', $default_data, $datas );
+            update_option( $option_key , $r_data);
+            */
+        }
+    }
+}
+add_filter( 'ultratable_save_data', 'ultratable_form_submit' );

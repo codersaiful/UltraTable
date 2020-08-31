@@ -294,3 +294,23 @@ if( !function_exists( 'ultratable_notfound_msg' ) ){
 }
 
 add_action( 'ultratable_product_notfound', 'ultratable_notfound_msg', 10, 5 );
+
+$option_key = apply_filters( 'ultratable_option_key', 'ultratable_configure_options', array() );
+$config = get_option( $option_key ); //advance_search
+
+if( !function_exists( 'ultratable_archives_page_template' ) ){
+   
+    function ultratable_archives_page_template( $template_file ) {
+
+       if( is_shop() || is_product_taxonomy() ){
+                   
+           $my_archive = ULTRATABLE_BASE_DIR . '/includes/templates/product-archives.php';
+           $my_archive = apply_filters( 'ultratable_archvie_page_template_loc', $my_archive, $template_file );
+           return file_exists( $my_archive ) ? $my_archive : $template_file;
+       }
+       return $template_file;
+    }
+}
+if( isset( $config['table_on_archive'] ) && $config['table_on_archive'] == 'on' ){
+    add_filter( 'template_include', 'ultratable_archives_page_template', 9999 );
+}
