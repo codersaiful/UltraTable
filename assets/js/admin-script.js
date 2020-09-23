@@ -88,5 +88,72 @@ jQuery(document).ready(function($){
             palettes:['#000000','#ffffff','#0a7f9c','#B02B2C','#edae44','#eeee22','#83a846','#7bb0e7','#745f7e','#5f8789','#d65799','#4ecac2'],
         };
         $('.ultratable-color, .ultratable-background-color').wpColorPicker(myOptions);
+        
+        
+        var styleInputItems = $('.ultraaddons-panel .ultratable-style-body table.ultraaddons-table tr.each-style').find('input.ua_input');
+
+        $(styleInputItems).each( function( key, value ){
+            var attrType = $(this).data( 'type' );
+            var attrPlaceholder = $(this).attr( 'placeholder' );
+            var attrName = $(this).attr( 'name' );
+            var attrValue = $(this).attr( 'value' );
+            var attrClass = $(this).attr( 'class' );
+            var parentTD = $(this).parent();
+            switch( attrType ){
+//                case 'font-size':
+//                    $(this).attr( 'type', 'number' );
+//                    $(this).attr( 'placeholder', 'Type font size in pixel' );
+//                    $(this).attr( 'min', 5 );
+//                    $(this).attr( 'value', attrValue );
+//                    break;
+                case 'font-weight':
+                    $(parentTD).html('');
+                    let fontWeights = [ '100', '200', '300', '400', '500', '600', '700', '800', '900' ];
+                    $(parentTD).html(inputToSelect(fontWeights));
+                    break;
+                case 'font-style':
+                    $(parentTD).html('');
+                    let fontStyles = [ 'normal', 'italic', 'oblique', 'initial', 'inherit' ];
+                    $(parentTD).html(inputToSelect(fontStyles));
+                    break;
+                case 'text-align':
+                    $(parentTD).html('');
+                    let textAligns = [ 'left', 'center', 'right', 'justify', 'initial', 'inherit' ];
+                    $(parentTD).html(inputToSelect(textAligns));
+                    break;
+                case 'text-shadow':
+                    break;
+                case 'border':
+                    break;
+                case 'padding':
+                    break;
+                case 'margin':
+                    break;
+//                case 'width':
+//                    $(this).attr( 'type', 'number' );
+//                    $(this).attr( 'placeholder', 'Type width in pixel' );
+//                    $(this).attr( 'min', 1 );
+//                    break;
+                default:
+                    
+            }
+            
+            function inputToSelect(option){
+                var html = '';
+                html = '<select class="'+ attrClass +'" name="'+ attrName +'">';
+                html += '<option value="">Select '+ attrPlaceholder +'</option>';
+                for(let i = 0; i < option.length; i++){
+                    let selectedText = '';
+                    if(option[i] === attrValue){
+                        selectedText = 'selected';
+                    }
+                    html += '<option value="'+ option[i] +'"'+ selectedText +'>'+ option[i] +'</option>';
+                }
+                html += '</select>';
+                return html;
+            }
+        });
+        
+        
     });
 });

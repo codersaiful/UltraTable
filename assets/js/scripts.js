@@ -2,6 +2,12 @@ jQuery(function ($) {
     'use strict';
     $(document).ready(function () {
         
+        $('.item').each(function(){
+            var style = $(this).attr('style');
+            $(this).children('a').attr('style',style);
+        });
+        
+        
         $('body').on('click','.saiful_click',function(){
             var POST_ID = 481,
             atts = $('.ultratable_table_' + POST_ID ).attr('data-atts'),
